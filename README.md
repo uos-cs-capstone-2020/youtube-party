@@ -4,7 +4,7 @@ Watch youtube togehter with your friends
 # Usage
 Run the application both as a server and a client (it uses 3000 port and 3001 port).
 ```
-npm run dev
+npm start
 ```
 
 Run all the test suites.

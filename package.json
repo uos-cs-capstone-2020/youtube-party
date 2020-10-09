@@ -63,9 +63,9 @@
     "workbox-webpack-plugin": "4.3.1"
   },
   "scripts": {
-    "start": "node scripts/start.js",
+    "client": "node scripts/start.js",
     "server": "nodemon src/server/server.js",
-    "dev": "concurrently \"npm run server\" \"npm run start\"",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
     "build": "node scripts/build.js",
     "test": "jest --coverage",
     "lint": "eslint ./src/",
@@ -99,7 +99,8 @@
       "react-app-polyfill/jsdom"
     ],
     "setupFilesAfterEnv": [
-      "<rootDir>/src/setupTests.js"
+      "<rootDir>/src/setupTests.js",
+      "<rootDir>/src/setupProxy.js"
     ],
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
@@ -144,9 +145,9 @@
   },
   "devDependencies": {
     "concurrently": "^5.3.0",
+    "http-proxy-middleware": "^1.0.5",
     "nodemon": "^2.0.4",
     "prettier": "^2.1.2"
   },
-  "proxy": "http://127.0.0.1:3001",
   "secure": false
 }

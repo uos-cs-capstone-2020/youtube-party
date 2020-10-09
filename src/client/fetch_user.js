@@ -1,16 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 function Data() {
   const [data, setData] = useState({});
 
-  fetch("/user")
-    .then((res) => res.json())
-    .then(
-      (data) => setData(data),
-      () => {
-        console.log(`data read: ${data}`);
-      }
-    );
+  useEffect(() => {
+    fetch("/api/user")
+      .then((res) => res.json())
+      .then((data) => setData(data));
+  }, []);
 
   return (
     <div id="main">

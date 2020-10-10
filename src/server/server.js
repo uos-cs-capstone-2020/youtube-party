@@ -1,17 +1,18 @@
 const express = require("express");
 
+const webSocket = require('./socket')
+const router = require('./router');
+
 const app = express();
 const port = 3001;
 
-app.get("/api/user", (req, res) => {
-  const data = {
-    id: "4321",
-    username: "youtubeParty",
-  };
 
-  res.json(data);
-});
+app.use("/api",router);
 
-app.listen(port, () => {
+
+const server = app.listen(port, () => {
   console.log(`server running on port ${port}`);
 });
+
+webSocket(server,app);
+

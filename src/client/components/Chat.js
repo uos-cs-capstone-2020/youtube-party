@@ -3,38 +3,41 @@ import queryString from 'query-string'
 import io from "socket.io-client"
 import { Redirect } from "react-router";
 
-let socket;
+let socket
 
 function Chat({location}){
     const [name,setName] = useState("");
     const [room,setRoom] = useState("");
     const [users,setUsers] = useState("");
     const [error,setError] = useState(false);
-    const ENDPOINT = 'http://localhost:3001'//server address
+   // const ENDPOINT = 'http://localhost:3001'//server address
 
 
 
+    useEffect( () => {
 
-    useEffect(() => {
-       const { name, room } = queryString.parse(location.search);
+        socket = io.connect('/',{path:'/socket.io'})
+        const { name, room } = queryString.parse(location.search);
+        if(name){setName(name)};
+        if(room){setRoom(room)};
 
-       socket = io.connect(ENDPOINT,{path:'/socket.io'})
-       if(name){setName(name)};
-       if(room){setRoom(room)};
-       socket.emit('join',{name,room}, (err)=>{
-           if(err){
-               alert(err);
-               setError(true);
-           }
-       })
-    }, [ENDPOINT,location]);
-
-
-    useEffect(() => {
         socket.on('roomData',({users})=>{
             setUsers(users);
         })
-    }, [])
+        
+    }, [location]);
+
+
+    useEffect(() => {
+        if(room && name){
+            socket.emit('join',{name,room}, (err)=>{
+                if(err){
+                    alert(err);
+                    setError(true);
+                }
+            })
+        }
+    }, [room,name])
 
     const redirect = "/?room="+room;
 

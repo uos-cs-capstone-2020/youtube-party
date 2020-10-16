@@ -46,9 +46,6 @@ function Chat({location}){
           {error && <Redirect to={redirect}/> }
           {users ? (
             <div>
-                <div>
-                    Youtube Party
-                </div>
                 <h1>Chat room - {room} </h1>
                 <h2>Your name - {name} </h2>
                 <div >

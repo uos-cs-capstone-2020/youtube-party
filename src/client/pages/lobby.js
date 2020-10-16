@@ -5,7 +5,7 @@ function lobby({location}) {
     return(
         <div className="container">
             <div className="head">
-                Nav
+                YoutubeParty 로고, 이름
             </div>
             <div className="body">
                 <div className="join">

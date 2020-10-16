@@ -16,9 +16,6 @@ function Join({location}){
 
     return (
         <>
-          <div>
-          Youtube Party
-          </div>
           <h1>Join</h1>
           <div>
             <input placeholder="Name"  value={name} onChange={(event) => setName(event.target.value)} />

@@ -5,11 +5,11 @@ function room({location}) {
     return(
         <div className="container">
             <div className="head">
-                Nav
+                YoutubeParty 로고, 이름............컨트롤
             </div>
             <div className="body">
                 <div className="conetent">
-                    <div className="screen">Screen</div>
+                    <div className="screen">영상</div>
                     <Chat location={location} />
                 </div>
                 <div className="watchlater">

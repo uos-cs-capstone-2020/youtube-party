@@ -1,5 +1,5 @@
 # youtube-party
-Watch youtube togehter with your friends
+Watch youtube together with your friends
 
 # Usage
 Run the application both as a server and a client (it uses 3000 port and 3001 port).

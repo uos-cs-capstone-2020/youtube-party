@@ -4,12 +4,12 @@ import React from "react";
 import {BrowserRouter as Router , Route} from 'react-router-dom';
 
 import lobby from './pages/lobby';
-import room from './pages/room';
+import nowplaying from './pages/nowplaying';
 function App() {
   return (
     <Router>
       <Route path="/" exact component={lobby}/>
-      <Route path="/chat" component={room} />
+      <Route path="/chat" component={nowplaying} />
     </Router>
   );
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import Chat from '../components/Chat';
 
-function room({location}) {
+function nowplaying({location}) {
     return(
         <div className="container">
             <div className="head">
@@ -17,10 +17,10 @@ function room({location}) {
                 </div>
             </div>
             <div className="foot">
-                room 제작자 정보.... 깃허브.... contact...
+                nowplaying 제작자 정보.... 깃허브.... contact...
             </div>
         </div>
     );
 }
 
-export default room;
+export default nowplaying;

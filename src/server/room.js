@@ -20,7 +20,7 @@ const findRoom = (room)=>{
   room = room.trim().toLowerCase();
   if(!room) return { error: 'Username and room are required.' };
   const roomInfo = rooms.find((roomInfo)=> roomInfo.room === room );
-  if(!roomInfo) return { error: `${room} is not exist. Please create ${room} room.`};
+  if(!roomInfo) return { error: `${room} does not exist. Please create ${room} room.`};
   return { roomInfo };// {roomInfo : {name: "" , room: ""} };
 }
 

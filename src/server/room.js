@@ -1,27 +1,34 @@
-const users = [];
+const rooms=[];
 
-const addUser = ({ id, name, room }) => {
+const addRoom = ({name,room})=>{  // 방주인 , 방이름
   name = name.trim().toLowerCase();
   room = room.trim().toLowerCase();
-
-  
-  const existingUser = users.find((user) => user.room === room && user.name === name);
-
   if(!name || !room) return { error: 'Username and room are required.' };
-  if(existingUser) return { error: 'Username is taken. Please use other name.' };
-  const user = { id, name, room };
- 
-  users.push(user);
 
-  return { user };
+  const existingRoom = rooms.find((roomInfo)=> roomInfo.room === room );
+  
+  if(existingRoom) return { error: `${room} is taken. Please use other room.`};
+  
+  const roomInfo = {name,room};
+  rooms.push(roomInfo);
+
+  return { roomInfo };// {roomInfo : {name: "" , room: ""} };
 }
 
-const removeUser = (id) => {
-  const index = users.findIndex((user) => user.id === id);
-  if(index !== -1) return users.splice(index, 1)[0];
+
+const findRoom = (room)=>{
+  room = room.trim().toLowerCase();
+  if(!room) return { error: 'Username and room are required.' };
+  const roomInfo = rooms.find((roomInfo)=> roomInfo.room === room );
+  if(!roomInfo) return { error: `${room} is not exist. Please create ${room} room.`};
+  return { roomInfo };// {roomInfo : {name: "" , room: ""} };
 }
 
-const getUser = (id) => users.find((user) => user.id === id);
-const getUsersInRoom = (room) => users.filter((user) => user.room === room);
 
-module.exports = {  addUser, removeUser, getUser, getUsersInRoom };
+const removeRoom = (room)=>{
+  const idx = rooms.findIndex((roomInfo)=>roomInfo.room===room);
+  if(idx!== -1)  return rooms.splice(idx,1)[0]; //삭제하고 삭제된 값 반환 {room: "" , name : ""};
+}
+
+const getRooms = ()=> rooms;
+module.exports = {  findRoom, addRoom,removeRoom, getRooms };

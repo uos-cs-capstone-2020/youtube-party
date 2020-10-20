@@ -1,21 +1,24 @@
-const { addUser, removeUser, getUsersInRoom  }= require('./room');
+// const { addUser, removeUser, getUsersInRoom  }= require('./room');
+
+const {findRoom, addRoom,removeRoom} = require('./room');
 
 
+test("addRoom",()=>{
+    expect(addRoom({name:"kim",room:"room1"})).toEqual({roomInfo:{name:"kim",room:"room1"}});
 
+    addRoom({name:"park",room:"room2"})
+    expect(addRoom({name:"lee",room:"room2"})).toEqual({ error: `room2 is taken. Please use other room.`});
+})
 
-test("addUser",()=>{
-    expect(addUser({id:"id1",name:"name1",room:"room1"})).toEqual({user:{id:"id1",name:"name1",room:"room1"}})
+test("findRoom",()=>{
+    addRoom({name:"choi",room:"room3"})
+    expect(findRoom("room3")).toEqual({roomInfo : {name:"choi",room:"room3"}});
+
+    expect(findRoom("noroom")).toEqual({error: `noroom is not exist. Please create noroom room.`})
 })
 
 
-test("removeUser",()=>{
-    addUser({id:"id2",name:"name2",room:"room2"});
-    expect(removeUser("id2")).toEqual({id:"id2",name:"name2",room:"room2"})
-})
-
-test("getUsersInRoom",()=>{
-    addUser({id:"id2",name:"name2",room:"room3"});
-    addUser({id:"id3",name:"name3",room:"room3"});
-    console.log(getUsersInRoom("room3"));
-    expect(getUsersInRoom("room3")).toEqual([{id:"id2",name:"name2",room:"room3"},{id:"id3",name:"name3",room:"room3"}])
+test("removeRoom",()=>{
+    addRoom({name:"choi",room:"room4"});
+    expect(removeRoom("room4")).toEqual({name:"choi",room:"room4"});
 })

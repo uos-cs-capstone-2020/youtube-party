@@ -14,7 +14,7 @@ test("findRoom",()=>{
     addRoom({name:"choi",room:"room3"})
     expect(findRoom("room3")).toEqual({roomInfo : {name:"choi",room:"room3"}});
 
-    expect(findRoom("noroom")).toEqual({error: `noroom is not exist. Please create noroom room.`})
+    expect(findRoom("noroom")).toEqual({error: `noroom does not exist. Please create noroom room.`})
 })
 
 

@@ -1,18 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import queryString from 'query-string'
+//import queryString from 'query-string'
+import socket from "../socketConfig"
 
 
 
-function Join({location}){
-  const [name, setName] =useState("");
+function Join(){
+    const [name, setName] =useState("");
     const [room, setRoom] = useState("");
-    useEffect(()=>{
-        const {room, name} = queryString.parse(location.search);
-        if(room)setRoom(room);
-        if(name)setName(name);
-    },[location]);
-
+    const [rooms,setRooms] = useState(new Set());
+  
+    useEffect( ()=>{
+      socket.emit('joinLobby');// 로비 입장 
+      socket.on('rooms',(data)=>{  // 방정보 받아서 저장
+        setRooms(()=>new Set(data));
+        socket.on('newRoom',(data)=>{ //방 추가될때
+          setRooms(rooms=>new Set(rooms.add(data)));
+        })
+        socket.on('removeRoom',(data)=>{// 방 제거 될떄 
+          setRooms(rooms=> new Set([...rooms].filter(roomInfo => roomInfo.room !== data.room)));
+        })
+      })
+      return ()=> socket.off();// 리스너 전부 끄기
+    },[])
 
     return (
         <>
@@ -26,12 +36,28 @@ function Join({location}){
           <div>
             <input placeholder="Room" value={room} onChange={(event) => setRoom(event.target.value)} />
           </div>
-          <Link onClick={e => (!name || !room) ? e.preventDefault() : null } to={`/chat?name=${name}&room=${room}`}>
-            <button type="submit">Sign In</button>
+          <Link onClick={e => (!name || !room) ? e.preventDefault() : null } to={`/room?name=${name}&room=${room}&selected=join`}>
+            <button type="submit">Join Room</button>
           </Link>
+          <Link onClick={e => (!name || !room) ? e.preventDefault() : null} to={`/room?name=${name}&room=${room}&selected=create`}>
+            <button type="submit">Create Room</button>
+          </Link>
+          <div>
+            <h2>Room-List</h2>
+            { rooms ? 
+            <h3>
+                      { [...rooms].map(({ room }) => (
+                      <div key={room}>
+                          {room}
+                      </div>
+                      ))}
+            </h3>
+            : null
+            }
+          </div>
         </>
     )
 }
 
 
-export default Join;
+export default React.memo(Join);

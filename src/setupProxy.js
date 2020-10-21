@@ -4,7 +4,6 @@ module.exports = function (app) {
     "/api",
     createProxyMiddleware({
       target: "http://localhost:3001",
-     // ws:true,
       changeOrigin: true,
     })
   );
@@ -14,9 +13,11 @@ module.exports = function (app) {
     "/socket.io",
     createProxyMiddleware({
       target: "http://localhost:3001",
-      secure:false,
-    //  ws:true,
-      changeOrigin: true,
+      //secure:false,
+      //ws:true,
+      //changeOrigin: true,
     })
   );
+
+  
 };

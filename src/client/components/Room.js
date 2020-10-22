@@ -1,7 +1,8 @@
-import React, {useState,useEffect} from 'react'
-import queryString from 'query-string'
+import React, {useState,useEffect} from 'react';
+import queryString from 'query-string';
 import { Redirect } from "react-router";
-import socket from "../socketConfig"
+import socket from "../socketConfig";
+import './Room.css';
 
 function Room({location}){
     const {name, room, selected} = queryString.parse(location.search);
@@ -44,10 +45,7 @@ function Room({location}){
         <div>
           {error && <Redirect to={redirect}/> }
           { users.size ? (
-            <div>
-                <div>
-                    Youtube Party
-                </div>
+            <div className="roomInfo">
                 <h1>Room name - {myRoom} </h1>
                 <h2>Your name - {myName} </h2>
                 <div >

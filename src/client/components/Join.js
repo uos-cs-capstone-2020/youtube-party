@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 //import queryString from 'query-string'
-import socket from "../socketConfig"
+import socket from "../socketConfig";
+import './Join.css';
 
 
 
@@ -26,20 +27,24 @@ function Join(){
 
     return (
         <>
-          <h1>Join</h1>
-          <div>
-            <input placeholder="Name"  value={name} onChange={(event) => setName(event.target.value)} />
+        <div className="box">
+          <div className = "Join">
+            <h1>Join</h1>
+            <div>
+              <input placeholder="Name"  value={name} onChange={(event) => setName(event.target.value)} />
+            </div>
+            <div>
+              <input placeholder="Room" value={room} onChange={(event) => setRoom(event.target.value)} />
+            </div>
+            <Link onClick={e => (!name || !room) ? e.preventDefault() : null } to={`/room?name=${name}&room=${room}&selected=join`}>
+              <button type="submit">Join Room</button>
+            </Link>
+            <Link onClick={e => (!name || !room) ? e.preventDefault() : null} to={`/room?name=${name}&room=${room}&selected=create`}>
+              <button type="submit">Create Room</button>
+            </Link>
           </div>
-          <div>
-            <input placeholder="Room" value={room} onChange={(event) => setRoom(event.target.value)} />
-          </div>
-          <Link onClick={e => (!name || !room) ? e.preventDefault() : null } to={`/room?name=${name}&room=${room}&selected=join`}>
-            <button type="submit">Join Room</button>
-          </Link>
-          <Link onClick={e => (!name || !room) ? e.preventDefault() : null} to={`/room?name=${name}&room=${room}&selected=create`}>
-            <button type="submit">Create Room</button>
-          </Link>
-          <div>
+
+          <div className = "RoomList">
             <h2>Room-List</h2>
             { rooms ? 
             <h3>
@@ -52,6 +57,7 @@ function Join(){
             : null
             }
           </div>
+        </div>
         </>
     )
 }

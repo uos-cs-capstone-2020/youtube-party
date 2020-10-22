@@ -10,8 +10,7 @@ module.exports = (server)=>{
         
         socket.on('joinLobby',()=>{ // user 가 로비페이지 들어오면
             socket.join("Lobby");
-            io.to("Lobby").emit('rooms',getRooms());// 존재하는 방 목록 전달
-          
+            socket.emit('rooms',getRooms());// 존재하는 방 목록 전달.
         })
 
         socket.on('joinRoom',({name,room,selected},callback)=>{ // user가 Room 페이지 들어오면

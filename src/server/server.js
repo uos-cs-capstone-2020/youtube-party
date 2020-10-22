@@ -14,5 +14,5 @@ const server = app.listen(port, () => {
   console.log(`server running on port ${port}`);
 });
 
-webSocket(server,app);
+webSocket(server);
 

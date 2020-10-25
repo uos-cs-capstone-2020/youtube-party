@@ -2,7 +2,6 @@ import React, {useState,useEffect} from 'react';
 import queryString from 'query-string';
 import { Redirect } from "react-router";
 import socket from "../socketConfig";
-import './Room.css';
 
 function Room({location}){
     const {name, room, selected} = queryString.parse(location.search);

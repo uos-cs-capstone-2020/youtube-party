@@ -1,7 +1,5 @@
 .Header{
     display: flex;
-    flex-direction: row;
-    justify-content: center;
     align-items: center;
 }
 
@@ -14,7 +12,6 @@
 
 .title{
     flex: 10;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 130%;
     font-weight: 900;
 }

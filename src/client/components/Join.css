@@ -1,29 +1,29 @@
-body{
-    background-color: #383838;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-}
-
-.box{
+.enter{
+    flex:1;
     display: flex;
     flex-wrap: wrap;
-    width: 100%;
-    
     justify-content: space-around;
-    align-content: flex-start;
-    align-items: flex-start;
+    width: 100%;
+    min-height: 100%;
 }
 .Join{
-    flex: 3;
+    flex: 3 1 500px;
     max-width: 300px;
     min-width: 250px;
+    margin: 0.25rem;
+    padding: 0.5rem;
+
+    background-color: #484848;
+    border-radius: 1rem;
 }
 
 .RoomList{
     flex: 7;
     height: 100%;
     min-width: 250px;
+    margin: 0.25rem;
+    padding: 0.5rem;
+
+    background-color: #484848;
+    border-radius: 1rem;
 }

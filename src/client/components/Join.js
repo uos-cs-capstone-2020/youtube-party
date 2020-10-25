@@ -26,9 +26,9 @@ function Join(){
 
     return (
       <>
-      <div className="box">
+      <div className="enter">
         <div className = "Join">
-          <h1>Join</h1>
+          <h2>Join</h2>
           <div>
             <input placeholder="Name"  value={name} onChange={(event) => setName(event.target.value)} />
           </div>

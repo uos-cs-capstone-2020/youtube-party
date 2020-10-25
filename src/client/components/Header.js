@@ -6,7 +6,7 @@ function Header(){
     return(
         <div className="Header">
             <img src={logo} alt="logo" />
-            <div className="title">Youtube Party</div>
+            <a href="/">Youtube Party</a>
         </div>
     )
 }

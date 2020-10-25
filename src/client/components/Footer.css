@@ -12,18 +12,19 @@
 
 .Footer *{
     color: #989898;
+    text-decoration: none;
     
 }
 
 .Footer > a[href^="https://github.com/uos-cs-capstone-2020/youtube-party"]{
     background: url(../../client/Orion_github.svg) no-repeat;
-    padding-left: 15px;
+    padding-left: 20px;
     filter: invert(0.5);
 }
 
 .Footer > a[href^="https://discord.com"]{
     background: url(../../client/Discord-Logo-White.svg) no-repeat;
-    padding-left: 15px;
+    padding-left: 20px;
     filter: invert(0.5);
 }
 .Footer > a:hover{

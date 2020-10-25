@@ -25,10 +25,9 @@ function Join(){
     },[])
 
     return (
-      <>
-      <div className="enter">
-        <div className = "Join">
-          <h2>Join</h2>
+      <div className="Join">
+        <div className = "EnterRoom">
+          <h3>Join</h3>
           <div>
             <input placeholder="Name"  value={name} onChange={(event) => setName(event.target.value)} />
           </div>
@@ -44,7 +43,7 @@ function Join(){
         </div>
 
         <div className = "RoomList">
-          <h2>Room-List</h2>
+          <h3>Room-List</h3>
           { rooms ? 
           <h3>
                     { [...rooms].map(({ room }) => (
@@ -57,7 +56,6 @@ function Join(){
           }
         </div>
       </div>
-      </>
     )
 }
 

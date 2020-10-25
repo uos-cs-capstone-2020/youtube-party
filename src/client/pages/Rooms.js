@@ -4,13 +4,14 @@ import Header from '../components/Header';
 import Room from '../components/Room';
 import Footer from '../components/Footer';
 import './background.css';
+import './Rooms.css';
 
 function Rooms({location}){
     return(
         <div className="Rooms">
-            <Header />
+            <Header/>
             <Room location={location}/>
-            <Footer />
+            <Footer/>
         </div>
     )
 }

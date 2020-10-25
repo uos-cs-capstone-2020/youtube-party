@@ -6,13 +6,13 @@
     align-items: center;
 
     min-height: 50px;
-    font-size: 0.8em;
+    font-size: 0.7em;
 }
 
-.Footer *{
+.Footer a{
     color: #989898;
     text-decoration: none;
-    
+    display: block;
 }
 
 .Footer > a[href^="https://github.com/uos-cs-capstone-2020/youtube-party"]{

@@ -7,15 +7,29 @@
 
     min-height: 50px;
     margin: 5px;
+    font-size: 0.8em;
 }
 
-.Footer > a{
-    display:block;
+.Footer *{
     color: #989898;
-    font-size: 0.7em;
+    
+}
+
+.Footer > a[href^="https://github.com/uos-cs-capstone-2020/youtube-party"]{
+    background: url(../../client/Orion_github.svg) no-repeat;
+    padding-left: 15px;
+    filter: invert(0.5);
+}
+
+.Footer > a[href^="https://discord.com"]{
+    background: url(../../client/Discord-Logo-White.svg) no-repeat;
+    padding-left: 15px;
+    filter: invert(0.5);
+}
+.Footer > a:hover{
+    filter: invert(0);
 }
 
 .Footer > a:visited{
     color: #989898;
-
 }

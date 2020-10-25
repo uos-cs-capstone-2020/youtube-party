@@ -1,0 +1,20 @@
+.Lobby{
+    display: flex;
+    flex-direction: column;
+    margin: 15px;
+    overflow: auto;
+}
+
+.Lobby > Header{
+    flex:1;
+}
+
+.Lobby > Join{
+    flex: 20;
+}
+
+.Lobby > Footer{
+    flex:1;
+    flex-wrap: wrap;
+    margin-top:auto;
+}

@@ -2,6 +2,7 @@ import React, {useState,useEffect} from 'react';
 import queryString from 'query-string';
 import { Redirect } from "react-router";
 import socket from "../socketConfig";
+import './Room.css';
 
 function Room({location}){
     const {name, room, selected} = queryString.parse(location.search);
@@ -41,20 +42,20 @@ function Room({location}){
 
 
     return (
-        <div>
+        <div id="Room">
           {error && <Redirect to={redirect}/> }
           { users.size ? (
             <div className="roomInfo">
                 <h1>Room name - {myRoom} </h1>
                 <h2>Your name - {myName} </h2>
-                <div >
-                <h2>User-list
+                <div>
+                <h3>User-list
                     {[...users].map(({ name,id }) => (
                     <div key={id}>
                         {name}({id})
                     </div>
                     ))}
-                </h2>
+                </h3>
                 </div>
             </div>
             ) : null}

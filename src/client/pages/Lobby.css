@@ -3,5 +3,19 @@
     display: flex;
     flex-direction: column;
     max-width: 1000px;
+    height:inherit;
     margin: 10px;
+    flex-wrap: wrap;
+}
+
+.Lobby > Header{
+    flex: 1;
+}
+
+.Lobby > Join{
+    flex: 7;
+}
+
+.Lobby > Footer{
+    flex: 1;
 }

@@ -25,7 +25,7 @@ function Join(){
     },[])
 
     return (
-      <div className="Join">
+      <div id="Join">
         <div className = "EnterRoom">
           <h3>Join</h3>
           <div>

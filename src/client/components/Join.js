@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 //import queryString from 'query-string'
-import socket from "../socketConfig"
-
+import socket from "../socketConfig";
+import './Join.css';
 
 
 function Join(){
@@ -25,11 +25,9 @@ function Join(){
     },[])
 
     return (
-        <>
-          <div>
-          Youtube Party
-          </div>
-          <h1>Join</h1>
+      <div id="Join">
+        <div className = "EnterRoom">
+          <h3>Join</h3>
           <div>
             <input placeholder="Name"  value={name} onChange={(event) => setName(event.target.value)} />
           </div>
@@ -42,20 +40,22 @@ function Join(){
           <Link onClick={e => (!name || !room) ? e.preventDefault() : null} to={`/room?name=${name}&room=${room}&selected=create`}>
             <button type="submit">Create Room</button>
           </Link>
-          <div>
-            <h2>Room-List</h2>
-            { rooms ? 
-            <h3>
-                      { [...rooms].map(({ room }) => (
-                      <div key={room}>
-                          {room}
-                      </div>
-                      ))}
-            </h3>
-            : null
-            }
-          </div>
-        </>
+        </div>
+
+        <div className = "RoomList">
+          <h3>Room-List</h3>
+          { rooms ? 
+          <h3>
+                    { [...rooms].map(({ room }) => (
+                    <div key={room}>
+                        {room}
+                    </div>
+                    ))}
+          </h3>
+          : null
+          }
+        </div>
+      </div>
     )
 }
 

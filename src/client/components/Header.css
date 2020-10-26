@@ -1,0 +1,27 @@
+.Header{
+    display: flex;
+    align-items: center;
+}
+
+.Header > img{
+    flex: 1;
+    min-width: 50px;
+    max-width: 70px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.Header >a{
+    display: block;
+    flex: 10;
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #ffffff;
+    text-decoration: none;
+}
+.Header >a:link{
+    color: #ffffff;
+}
+.Header >a:visited{
+    color: #ffffff;
+}

@@ -1,13 +1,8 @@
 // Calls the play video function on the server
 function playVideo(roomnum) {
-    // dailyPlayer.play();
-    //vimeoPlayer.play()
     socket.emit('play video', {
         room: roomnum
     });
-
-    // Doesn't work well unless called in server
-    //io.sockets.in("room-"+roomnum).emit('playVideoClient');
 }
 
 // Calls the sync function on the server
@@ -16,122 +11,28 @@ function syncVideo(roomnum) {
     var state
     var videoId = id
 
-    // var syncText = document.getElementById("syncbutton")
-    // console.log(syncText.innerHTML)
-    // syncText.innerHTML = "<i class=\"fas fa-sync fa-spin\"></i> Sync"
-
-    switch (currPlayer) {
-        case 0:
-            currTime = player.getCurrentTime();
-            state = playerStatus
-            console.log("I am host and my current time is " + currTime + state)
-            break;
-        case 1:
-            currTime = dailyPlayer.currentTime;
-            state = dailyPlayer.paused;
-            break;
-        case 2:
-            vimeoPlayer.getCurrentTime().then(function(seconds) {
-                // seconds = the current playback position
-                currTime = seconds
-
-                // Need to nest async functions
-                vimeoPlayer.getPaused().then(function(paused) {
-                    // paused = whether or not the player is paused
-                    state = paused
-                    console.log("state=" + state)
-                    socket.emit('sync video', {
-                        room: roomnum,
-                        time: currTime,
-                        state: state,
-                        videoId: videoId
-                    });
-                }).catch(function(error) {
-                    // an error occurred
-                    console.log("Error: Could not retrieve Vimeo Player state")
-                });
-
-            }).catch(function(error) {
-                // an error occurred
-                console.log("Error: Could not retrieve Vimeo player current time")
-            });
-            break;
-        case 3:
-            currTime = media.currentTime;
-            state = media.paused;
-            break;
-        default:
-            console.log("Error invalid player id")
-    }
-
-    // Required due to vimeo asyncronous functionality
-    if (currPlayer != 2) {
-        socket.emit('sync video', {
-            room: roomnum,
-            time: currTime,
-            state: state,
-            videoId: videoId
-        });
+    if (currPlayer == 0) {
+        currTime = player.getCurrentTime();
+        state = playerStatus
+        console.log("I am host and my current time is " + currTime + state)
+    }else{
+        console.log("Error invalid player id")
     }
 }
 
 // This return the current time
 function getTime() {
-    switch (currPlayer) {
-        case 0:
-            return player.getCurrentTime();
-            break;
-        case 1:
-            return dailyPlayer.currentTime;
-            break;
-        case 2:
-            vimeoPlayer.getCurrentTime().then(function(seconds) {
-                // seconds = the current playback position
-                return seconds
-
-            }).catch(function(error) {
-                // an error occurred
-                console.log("Error: Could not retrieve Vimeo player current time")
-                return null
-            });
-            break;
-        case 3:
-            return media.currentTime;
-            break;
-        default:
-            console.log("Error invalid player id")
+    if (currPlayer == 0) {
+        return player.getCurrentTime();
+    }else{
+        console.log("Error invalid player id")
     }
 }
 
 function seekTo(time) {
-    switch (currPlayer) {
-        case 0:
-            player.seekTo(time)
-            player.playVideo()
-            break;
-        case 1:
-            dailyPlayer.seek(currTime);
-            dailyPlayer.play();
-            break;
-        case 2:
-            vimeoPlayer.setCurrentTime(currTime).then(function(seconds) {
-                // seconds = the actual time that the player seeked to
-            }).catch(function(error) {
-                switch (error.name) {
-                    case 'RangeError':
-                        // the time was less than 0 or greater than the video’s duration
-                        console.log("the time was less than 0 or greater than the video’s duration")
-                        break;
-                    default:
-                        // some other error occurred
-                        break;
-                }
-            });
-            break;
-        case 3:
-            media.currentTime = currTime
-            media.play()
-            break;
+    if (currPlayer == 0) {
+        player.seekTo(time)
+        player.playVideo()
     }
 }
 
@@ -140,50 +41,23 @@ function idParse(videoId) {
     // If user enters a full link
     if (videoId.includes("https://") || videoId.includes("http://") || videoId.includes(".com/")) {
         // Do some string processing with regex
-        switch (currPlayer) {
-            case 0:
-                if (videoId.includes("youtu.be")) {
-                    var myRegex = /.+youtu\.be\/([A-Za-z0-9\-_]+)/g
-                    var match = myRegex.exec(videoId)
-                    if (match != null) {
-                        return match[1]
-                    }
-                } else {
-                  var myRegex = /.+watch\?v=([A-Za-z0-9\-_]+)/g
-                  var match = myRegex.exec(videoId)
-                  if (match != null) {
-                      return match[1]
-                  }
-                }
-                videoId = "invalid"
-                break
-            case 1:
-                var myRegex = /.+\/(.+)/g
-                if (videoId.includes("playlist")) {
-                    myRegex = /.+video=(.+)/g
-                }
-
+        if (currPlayer == 0) {
+            if (videoId.includes("youtu.be")) {
+                var myRegex = /.+youtu\.be\/([A-Za-z0-9\-_]+)/g
                 var match = myRegex.exec(videoId)
                 if (match != null) {
-                    console.log("You entered a link, but you really meant " + match[1])
                     return match[1]
                 }
-                videoId = "invalid"
-                break
-            case 2:
-                var myRegex = /.+\/(.+)/g
+            } else {
+                var myRegex = /.+watch\?v=([A-Za-z0-9\-_]+)/g
                 var match = myRegex.exec(videoId)
                 if (match != null) {
-                    console.log("You entered a link, but you really meant " + match[1])
                     return match[1]
                 }
-                videoId = "invalid"
-                break
-            case 3:
-                return videoId
-                break
-            default:
-                console.log("Error invalid videoId")
+            }
+            videoId = "invalid"
+        }else{
+            console.log("Error invalid videoId")
         }
     }
     return videoId
@@ -194,24 +68,14 @@ function playlistParse(videoId) {
     // If user enters a full link
     if (videoId.includes("https://") || videoId.includes("http://") || videoId.includes(".com/")) {
         // Do some string processing with regex
-        switch (currPlayer) {
-            case 0:
-                var myRegex = /.+&list=([A-Za-z0-9\-_]+)/g
-                var match = myRegex.exec(videoId)
-                if (match != null) {
-                    return match[1]
-                }
-                break;
-
-            case 1:
-                break;
-
-            case 2:
-                break;
-            case 3:
-                break;
-            default:
-                console.log("Error invalid player")
+        if (currPlayer == 0) {
+            var myRegex = /.+&list=([A-Za-z0-9\-_]+)/g
+            var match = myRegex.exec(videoId)
+            if (match != null) {
+                return match[1]
+            }
+        }else{
+            console.log("Error invalid player")
         }
     }
     return "invalid"
@@ -360,17 +224,6 @@ function loveLive(roomnum) {
     })
 }
 
-// Get time - DEPRECATED
-// socket.on('getTime', function(data) {
-//     var caller = data.caller
-//     var time = player.getCurrentTime()
-//     console.log("Syncing new socket to time: " + time)
-//     socket.emit('change time', {
-//         time: time,
-//         id: caller
-//     });
-// });
-
 // This just calls the sync host function in the server
 socket.on('getData', function(data) {
     console.log("Hi im the host, you called?")
@@ -411,39 +264,17 @@ var id = "M7lc1UVf-VE"
 // Calls the play/pause function
 socket.on('playVideoClient', function(data) {
     // Calls the proper play function for the player
-    switch (currPlayer) {
-        case 0:
+    if (currPlayer == 0) {
             play()
-            break;
-        case 1:
-            dailyPlay()
-            break;
-        case 2:
-            vimeoPlay()
-            break;
-        case 3:
-            html5Play()
-            break;
-        default:
+    }else{
             console.log("Error invalid player id")
     }
 });
 
 socket.on('pauseVideoClient', function(data) {
-    switch (currPlayer) {
-        case 0:
+    if (currPlayer == 0) {
             player.pauseVideo();
-            break;
-        case 1:
-            dailyPlayer.pause();
-            break;
-        case 2:
-            vimeoPlayer.pause();
-            break;
-        case 3:
-            media.pause()
-            break;
-        default:
+    }else{
             console.log("Error invalid player id")
     }
 });
@@ -478,85 +309,26 @@ socket.on('syncVideoClient', function(data) {
         changeSinglePlayer(playerId)
     } else {
         // This syncs the time and state
-        switch (currPlayer) {
-            case 0:
-                var clientTime = player.getCurrentTime();
-                // Only seek if off by more than .1 seconds
-                // CURRENTLY ALL SET TO TRUE TO TO SYNCING ISSUES
-                if (true || clientTime < currTime - .1 || clientTime > currTime + .1) {
-                    player.seekTo(currTime);
-                }
-                // Sync player state
-                // IF parent player was paused
-                // If state is -1 (unstarted) the video will still start as intended
-                if (state == 2) {
-                    console.log("paused?")
-                    player.pauseVideo();
-                }
-                // If not paused
-                else {
-                    player.playVideo();
-                }
-                break;
-
-            case 1:
-                var clientTime = dailyPlayer.currentTime;
-                // Only seek if off by more than .1 seconds
-                if (true || clientTime < currTime - .1 || clientTime > currTime + .1) {
-                    dailyPlayer.seek(currTime);
-                }
-                if (state) {
-                    console.log("i pausing!")
-                    dailyPlayer.pause()
-                } else {
-                    dailyPlayer.play()
-                }
-                break;
-
-            case 2:
-                vimeoPlayer.getCurrentTime().then(function(seconds) {
-                    // seconds = the current playback position
-                    if (true || seconds < currTime - .1 || seconds > currTime + .1) {
-                        vimeoPlayer.setCurrentTime(currTime).then(function(seconds) {
-                            if (state) {
-                                vimeoPlayer.pause()
-                            } else {
-                                vimeoPlayer.play()
-                            }
-
-                        }).catch(function(error) {
-                            switch (error.name) {
-                                case 'RangeError':
-                                    // the time was less than 0 or greater than the video’s duration
-                                    console.log("the time was less than 0 or greater than the video’s duration")
-                                    break;
-
-                                default:
-                                    // some other error occurred
-                                    break;
-                            }
-                        });
-                    }
-                }).catch(function(error) {
-                    // an error occurred
-                    console.log("Error: Could not retrieve Vimeo player current time")
-                });
-                break;
-
-            case 3:
-                media.currentTime = currTime
-
-                // Sync player state
-                // IF parent player was paused
-                if (state) {
-                    media.pause()
-                } else {
-                    media.play()
-                }
-                break;
-
-            default:
-                console.log("Error invalid player id")
+        if (currPlayer == 0) {
+            var clientTime = player.getCurrentTime();
+            // Only seek if off by more than .1 seconds
+            // CURRENTLY ALL SET TO TRUE TO TO SYNCING ISSUES
+            if (true || clientTime < currTime - .1 || clientTime > currTime + .1) {
+                player.seekTo(currTime);
+            }
+            // Sync player state
+            // IF parent player was paused
+            // If state is -1 (unstarted) the video will still start as intended
+            if (state == 2) {
+                console.log("paused?")
+                player.pauseVideo();
+            }
+            // If not paused
+            else {
+                player.playVideo();
+            }
+        }else{
+            console.log("Error invalid player id")
         }
     }
 
@@ -579,44 +351,10 @@ socket.on('changeVideoClient', function(data) {
         // This changes the video
         id = videoId
 
-        switch (currPlayer) {
-            case 0:
-                player.loadVideoById(videoId);
-                break;
-            case 1:
-                dailyPlayer.load(videoId, {
-                    autoplay: true
-                });
-                break;
-            case 2:
-                vimeoPlayer.loadVideo(videoId).then(function(id) {
-                    // the video successfully loaded
-                }).catch(function(error) {
-                    switch (error.name) {
-                        case 'TypeError':
-                            // the id was not a number
-                            break;
-
-                        case 'PasswordError':
-                            // the video is password-protected and the viewer needs to enter the
-                            // password first
-                            break;
-
-                        case 'PrivacyError':
-                            // the video is password-protected or private
-                            break;
-
-                        default:
-                            // some other error occurred
-                            break;
-                    }
-                });
-                break;
-            case 3:
-                htmlLoadVideo(videoId)
-                break;
-            default:
-                console.log("Error invalid player id")
+        if (currPlayer == 0) {
+            player.loadVideoById(videoId);
+        }else{
+            console.log("Error invalid player id")
         }
     })
 

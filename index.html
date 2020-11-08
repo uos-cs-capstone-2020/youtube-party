@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,11 +23,11 @@
     <title>YouTube Party</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet"> 
+    <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- <link href="css/animate.css" rel="stylesheet"> -->
 
     <!-- JQuery -->
-    <script src="https://code.jquery.com/jquery-latest.min.js"></script> 
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
     <!-- Socket.io -->
     <script src="/socket.io/socket.io.js"></script>
 
@@ -50,293 +49,294 @@
 
 <body class="bg-light" id="Home">
 
-  <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <div class="container">
-          <a class="navbar-brand js-scroll-trigger" href="#Home"><img src="img/logo.png" alt="Vynchronize logo" height="40" width="40"> Vynchronize</a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-          <div class="collapse navbar-collapse" id="navbarResponsive">
-              <ul class="navbar-nav ml-auto">
-                  <!-- <li class="nav-item active">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="#Home"><img src="img/logo.png" alt="Vynchronize logo"
+                    height="40" width="40"> Youtube Party</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <!-- <li class="nav-item active">
             <a class="nav-link js-scroll-trigger" href="#Home">Home
               <span class="sr-only">(current)</span>
             </a>
           </li> -->
-                  <li class="nav-item">
-                      <a id="chat-nav" class="nav-link js-scroll-trigger hide" href="#messageArea">Chatroom</a>
-                  </li>
-                  <li class="nav-item">
-                      <a id="about-nav" class="nav-link js-scroll-trigger hide" href="#about">About</a>
-                  </li>
-                  <li class="nav-item">
-                      <a id="contact-nav" class="nav-link js-scroll-trigger hide" href="#contact">Contact</a>
-                  </li>
-                  <li class="nav-item">
-                      <a target="_blank" rel="noopener noreferrer" class="nav-link js-scroll-trigger" href="https://www.facebook.com/vynchronize">
-                          <i class="fab fa-facebook"></i>
-                      </a>
-                  </li>
-                  <li class="nav-item">
-                      <a target="_blank" rel="noopener noreferrer" class="nav-link js-scroll-trigger" href="https://github.com/kyle8998/Vynchronize">
-                          <i class="fab fa-github"></i>
-                      </a>
-                  </li>
-              </ul>
-          </div>
-      </div>
-  </nav>
+                    <li class="nav-item">
+                        <a id="chat-nav" class="nav-link js-scroll-trigger hide" href="#messageArea">Chat</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="about-nav" class="nav-link js-scroll-trigger hide" href="#about">Room</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="contact-nav" class="nav-link js-scroll-trigger hide" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-  <!-- Page Content -->
-  <div class="container">
+    <!-- Page Content -->
+    <div class="container">
 
-      <!-- Loading page -->
-      <!-- Loader is currently dependent on the dailymotion api because it is the slowest -->
-      <div id="loading"></div>
+        <!-- Loading page -->
+        <!-- Loader is currently dependent on the dailymotion api because it is the slowest -->
+        <div id="loading"></div>
 
-      <!-- User Form (First Page) -->
-      <div id="userFormArea" class="row">
-          <div class="col-md-12">
-              <!-- ADD DESCRIPTION HERE -->
-              <h2>Welcome to Vynchronize</h2>
-              <p class="lead">The hot new video synchronization platform used to watch videos in realtime with friends!</p>
-              <hr style="height:20pt; visibility:hidden;" />
+        <!-- User Form (First Page) -->
+        <div id="userFormArea" class="row">
+            <div class="col-md-12">
+                <!-- ADD DESCRIPTION HERE -->
+                <h2> 접속 정보 입력 </h2>
+                <form id="userForm">
+                    <div class="form-group">
+                        <p style="color:red; margin-bottom: 0px" id="missinginfo"></p>
+                        <label class="col-sm-3">이름</label>
+                        <input class="form-control col-sm-6" id="username" />
+                        <br />
+                        <p style="color:red; margin-bottom: 0px" id="missinginfo2"></p>
+                        <label class="col-sm-3">
+                            방 코드
+                            <button type="button" onClick="randomroom()" class="btn btn-primary random">무작위 생성</button>
+                        </label>
 
-              <h2> Join a Room! </h2>
-              <form id="userForm">
-                  <div class="form-group">
-                      <p style="color:red; margin-bottom: 0px" id="missinginfo"></p>
-                      <label>Enter Name</label>
-                      <input class="form-control" id="username" />
-                      <br />
-                      <p style="color:red; margin-bottom: 0px" id="missinginfo2"></p>
-                      <label>Enter Room ID (Default 1)</label>
-                      <button type="button" onClick="randomroom()" class="btn btn-primary random">Random</button>
-                      <br/>
-                      <input class="form-control" id="roomnum" />
-                      <br/>
+                        <br />
+                        <input class="form-control col-sm-6" id="roomnum" />
+                        <br />
 
-                      <input style="margin-top: 10px;" type="submit" class="btn btn-primary" value="Enter" />
-                      <hr style="height:65pt; visibility:hidden;" />
-                  </div>
-              </form>
-          </div>
-      </div>
+                        <input style="margin-top: 10px;" type="submit" class="btn btn-primary" value="접속" />
+                        <hr style="height:65pt; visibility:hidden;" />
+                    </div>
+                </form>
+            </div>
+        </div>
 
-      <div id="roomArea">
-          <!-- Heading Row -->
-          <div class="row my-4" style="margin-top: 0px !important;">
-              <div class="col-lg-7">
+        <div id="roomArea">
+            <!-- Heading Row -->
+            <div class="row my-4" style="margin-top: 0px !important;">
+                <div class="col-lg-7">
 
 
 
-                <hr style="height:0pt; visibility:hidden;" />
-      <h5 style="color:gary"><span id="hostlabel" class="label label-default"> Current Host: 안지영 </span></h5>
+                    <hr style="height:0pt; visibility:hidden;" />
+                    <h5 style="color:gary"><span id="hostlabel" class="label label-default"> Current Host: 안지영 </span>
+                    </h5>
 
-                  <!----------------------------------- PLAYER AREA ----------------------------------->
+                    <!----------------------------------- PLAYER AREA ----------------------------------->
 
-                  <div id='playerArea'>
-                      <div class="video" id="player"></div>
-                      <!-- <iframe class="video" id="player" allowfullscreen="0" rel="0" width="640" height="360" src="https://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1" frameborder="1" style="border: solid 4px #37474F"></iframe> -->
-                  </div>
-                  <div id='dailyArea'>
-                      <div class="video" id="player-daily"></div>
-                  </div>
-                  <div id='vimeoArea'>
-                     
-                  </div>
-                  <div id='HTML5Area'>
-                      <div class="html5player">
-                          <video src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" width="640" height="360" class="video html5video" id="html5src" controls>
-                          <!-- <source src="video/sintel-short.mp4" type="video/mp4">
+                    <div id='playerArea'>
+                        <div class="video" id="player"></div>
+                        <!-- <iframe class="video" id="player" allowfullscreen="0" rel="0" width="640" height="360" src="https://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1" frameborder="1" style="border: solid 4px #37474F"></iframe> -->
+                    </div>
+                    <div id='dailyArea'>
+                        <div class="video" id="player-daily"></div>
+                    </div>
+                    <div id='vimeoArea'>
+
+                    </div>
+                    <div id='HTML5Area'>
+                        <div class="html5player">
+                            <video
+                                src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+                                width="640" height="360" class="video html5video" id="html5src" controls>
+                                <!-- <source src="video/sintel-short.mp4" type="video/mp4">
                           <source src="video/sintel-short.webm" type="video/webm"> -->
-                          <!-- fallback content here -->
-                          </video>
-                      </div>
-                  </div>
+                                <!-- fallback content here -->
+                            </video>
+                        </div>
+                    </div>
 
-                  <!----------------------------------- PLAYER AREA ----------------------------------->
-                  <!-- <hr> -->
-                  <div>
-                      <!-- <button id="playButton" onclick="playVideo(roomnum)" style="margin-top:.5rem" class="btn btn-primary"><i class="fa fa-play"></i> Play / <i class="fa fa-pause"></i> Pause</button>
+                    <!----------------------------------- PLAYER AREA ----------------------------------->
+                    <!-- <hr> -->
+                    <div>
+                        <!-- <button id="playButton" onclick="playVideo(roomnum)" style="margin-top:.5rem" class="btn btn-primary"><i class="fa fa-play"></i> Play / <i class="fa fa-pause"></i> Pause</button>
 
                       <button id="syncbutton" onclick="syncVideo(roomnum);syncAlert()" style="margin-top:.5rem" class="btn btn-primary"><i class="fa fa-sync"></i> Sync</button> -->
 
-                     
-                      <!-- <br/> -->
-                     
-                     </div>
 
-                  <!-- Div for lights off! -->
-                  <div id='persoff'></div>
+                        <!-- <br/> -->
 
-                  <div class="topbotmargins">
-                      <input type="Video" style="max-width: 250px; margin-right: .5rem;  float: left;" class="form-control" id="inputVideoId" placeholder="Video ID / URL">
-                      <button id="enqueueButton" onclick="enqueueVideoParse(roomnum)" class="btn btn-primary"><i class="fas fa-plus"></i> Add to Queue</button>
-                      <button id="emptyButton" onclick="emptyQueue(roomnum)" class="btn btn-primary"><i class="fas fa-trash"></i> Empty Queue</button>
-                      <button style="background-color: #272727" type="button" class=" btn btn-primary" data-toggle="modal" data-target="#inviteModal"><i style="width: 15px; height: 15px;" class="fas fa-user-plus"></i>Invite</button>
                     </div>
-                  <div>
-                      <!-- <a class="ghost-button-full-color"><i class="far fa-times-circle"></i></a> -->
-                      <!-- <button id="changeButton" onclick="changeVideoParse(roomnum)" class="btn btn-primary"><i class="fas fa-exchange-alt"></i> Change Video</button>
+
+                    <!-- Div for lights off! -->
+                    <div id='persoff'></div>
+
+                    <div class="topbotmargins">
+                        <input type="Video" style="max-width: 250px; margin-right: .5rem;  float: left;"
+                            class="form-control" id="inputVideoId" placeholder="Video ID / URL">
+                        <button id="enqueueButton" onclick="enqueueVideoParse(roomnum)" class="btn btn-primary"><i
+                                class="fas fa-plus"></i> Add to Queue</button>
+                        <button id="emptyButton" onclick="emptyQueue(roomnum)" class="btn btn-primary"><i
+                                class="fas fa-trash"></i> Empty Queue</button>
+                        <button style="background-color: #272727" type="button" class=" btn btn-primary"
+                            data-toggle="modal" data-target="#inviteModal"><i style="width: 15px; height: 15px;"
+                                class="fas fa-user-plus"></i>Invite</button>
+                    </div>
+                    <div>
+                        <!-- <a class="ghost-button-full-color"><i class="far fa-times-circle"></i></a> -->
+                        <!-- <button id="changeButton" onclick="changeVideoParse(roomnum)" class="btn btn-primary"><i class="fas fa-exchange-alt"></i> Change Video</button>
                       <button id="previousButton" onclick="prevVideo(roomnum)" class="btn btn-primary"><i class="fas fa-step-backward"></i> Previous</button>
                       <button id="nextButton" onclick="playNext(roomnum)" class="btn btn-primary"><i class="fas fa-step-forward"></i> Next</button> -->
 
-                      <br/>
+                        <br />
 
-                  </div>
-                  <!-- <input type="file" id="html5-input" /> -->
-                  <!-- Playlist shit -->
-                
-                  
-       
-                  <br/>
-
-                  <!-- HTML5 player input -->
-                  <!-- <input type="file" id="html5-input" /> -->
-                  <!-- <input type="Video" style="max-width: 200px; margin-right: .5rem; margin-bottom: .5rem; float: left;" class="form-control" id="inputVideoURL" placeholder="Direct URL to .mp4/.webm"> -->
-
-                  <!-- <p style="display: none" id="html5-message" class="lead">Video File Upload Not Yet Supported</p> -->
-                  <p style="display: none" id="beta-message" class="lead">Queue is currently only supported by YouTube</p>
+                    </div>
+                    <!-- <input type="file" id="html5-input" /> -->
+                    <!-- Playlist shit -->
 
 
 
-              </div>
+                    <br />
 
-              <!-- /.col-lg-8 -->
-              <div class="col-lg-5">
-                  <!-- <div class="col-md-4"> -->
-                  <!-- <div id="onlineArea" class="row"> -->
-           
-            
-                  <hr style="height:0pt; visibility:hidden;" />
-                  <h5 style="color:gray;">chat room</h5>
+                    <!-- HTML5 player input -->
+                    <!-- <input type="file" id="html5-input" /> -->
+                    <!-- <input type="Video" style="max-width: 200px; margin-right: .5rem; margin-bottom: .5rem; float: left;" class="form-control" id="inputVideoURL" placeholder="Direct URL to .mp4/.webm"> -->
 
-                  <!-- Modal -->
-                  <div id="inviteModal" class="modal fade" role="dialog">
-                      <div class="modal-dialog">
+                    <!-- <p style="display: none" id="html5-message" class="lead">Video File Upload Not Yet Supported</p> -->
+                    <p style="display: none" id="beta-message" class="lead">Queue is currently only supported by YouTube
+                    </p>
 
-                          <!-- Modal content-->
-                          <div class="modal-content">
-                              <div class="modal-header">
-                                  <h4 class="modal-title">Invite a Friend</h4>
-                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                              </div>
-                              <div class="modal-body">
-                                  <p>Send a friend your unique room link so they can watch videos too!</p>
-                                  <!-- <p style="text-align: center;" id="invite">vynchronize.herokuapp.com/ROOMNUM</p> -->
-                                  <input class="inv_input" id="inv_input" type="text" value="vynchronize.herokuapp.com/ROOMNUM" class="field left" readonly>
-                              </div>
-                              <div class="modal-footer">
-                                  <div style="opacity: 1" class="tooltip">
-                                      <button type="button" class="btn btn-default" onclick="copyInvite()" onmouseout="outFunc()"><span class="tooltiptext" id="myTooltip">Copy to clipboard</span><i class="fas fa-clipboard"></i> Copy to Clipboard</button>
-                                  </div>
-                                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                              </div>
-                          </div>
 
-                      </div>
-                  </div>
-                  <!-- </div> -->
-                  <!-- </div> -->
 
-                  <div id="messageArea" class="row">
-                      <br/>
-                      <!-- <h2 style="color:gray">Chat</h2> -->
-                      <div class="col-md-12">
-                          <div class="chat noscrollbar" id="chat"></div>
-                          <!-- Message Form (Enter Message) -->
-                          <form id="messageForm">
-                              <div class="form-group">
-                                
-                                  <!-- <label>Enter Message...</label> -->
-                                  <input class="form-control chat-form" id="message" placeholder="Enter Message..." />
-                                  <!-- <textarea class="form-control" id="message"></textarea> -->
-                                  <br />
-                                  <!-- <input type="submit" class="btn btn-primary" value="Send Message" /> -->
-                                  <br />
-                              </div>
-                          </form>
-                      </div>
-                  </div>
-              
-              </div>
-              <!-- /.col-md-4 -->
-          </div>
+                </div>
 
-          <!-- /.row -->
-        <div class="row">
-            <div class="col-lg-10">
-                <div id="visual-queue" class="vid-list-container">
-                    <ul class="vid-list" id="vidlist">
-                        <li class="vid-item">
-                            <!-- <div class="thumb">
+                <!-- /.col-lg-8 -->
+                <div class="col-lg-5">
+                    <!-- <div class="col-md-4"> -->
+                    <!-- <div id="onlineArea" class="row"> -->
+
+
+                    <hr style="height:0pt; visibility:hidden;" />
+                    <h5 style="color:gray;">chat room</h5>
+
+                    <!-- Modal -->
+                    <div id="inviteModal" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Invite a Friend</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Send a friend your unique room link so they can watch videos too!</p>
+                                    <!-- <p style="text-align: center;" id="invite">vynchronize.herokuapp.com/ROOMNUM</p> -->
+                                    <input class="inv_input" id="inv_input" type="text"
+                                        value="vynchronize.herokuapp.com/ROOMNUM" class="field left" readonly>
+                                </div>
+                                <div class="modal-footer">
+                                    <div style="opacity: 1" class="tooltip">
+                                        <button type="button" class="btn btn-default" onclick="copyInvite()"
+                                            onmouseout="outFunc()"><span class="tooltiptext" id="myTooltip">Copy to
+                                                clipboard</span><i class="fas fa-clipboard"></i> Copy to
+                                            Clipboard</button>
+                                    </div>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- </div> -->
+                    <!-- </div> -->
+
+                    <div id="messageArea" class="row">
+                        <br />
+                        <!-- <h2 style="color:gray">Chat</h2> -->
+                        <div class="col-md-12">
+                            <div class="chat noscrollbar" id="chat"></div>
+                            <!-- Message Form (Enter Message) -->
+                            <form id="messageForm">
+                                <div class="form-group">
+
+                                    <!-- <label>Enter Message...</label> -->
+                                    <input class="form-control chat-form" id="message" placeholder="Enter Message..." />
+                                    <!-- <textarea class="form-control" id="message"></textarea> -->
+                                    <br />
+                                    <!-- <input type="submit" class="btn btn-primary" value="Send Message" /> -->
+                                    <br />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.col-md-4 -->
+            </div>
+
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-10">
+                    <div id="visual-queue" class="vid-list-container">
+                        <ul class="vid-list" id="vidlist">
+                            <li class="vid-item">
+                                <!-- <div class="thumb">
                                 <a onClick="removeAt(0)" class="ghost-button-full-color"><i class="far fa-times-circle"></i></a>
                                 <img src="http://img.youtube.com/vi/eg6kNoJmzkY/0.jpg">
                             </div>
                             <div class="desc">
                                 Jessica Hernandez & the Deltas - Dead Brains
                             </div> -->
-                        </li>
-                    </ul>
-                </div>
-                <div id="queue-arrows" class="arrows">
-                    <div class="arrow-left">
-                        <i class="fa fa-chevron-left fa-lg"></i>
+                            </li>
+                        </ul>
                     </div>
-                    <div class="arrow-right">
-                        <i class="fa fa-chevron-right fa-lg"></i>
+                    <div id="queue-arrows" class="arrows">
+                        <div class="arrow-left">
+                            <i class="fa fa-chevron-left fa-lg"></i>
+                        </div>
+                        <div class="arrow-right">
+                            <i class="fa fa-chevron-right fa-lg"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <h5 style="color: gray;">Online Users</h5>
+
+                    <div class="well online-users noscrollbar">
+                        <ul class="list-group" id="users"></ul>
+
                     </div>
                 </div>
             </div>
-            <div class="col-lg-2">
-                <h5 style="color: gray;">Online Users</h5>
-                
-                    <div class="well online-users noscrollbar">
-                    <ul class="list-group" id="users"></ul>
-           
+
+            <section id="about" class="bg-light">
+                <hr style="height:100pt; visibility:hidden;" />
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 mx-auto">
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <hr style="height:20pt; visibility:hidden;" />
+
+            <section id="contact" class="bg-light">
+                <hr style="height:100pt; visibility:hidden;" />
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 mx-auto">
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <hr style="height:50pt; visibility:hidden;" />
+
         </div>
-        </div>
-        </div>
-   
-          <section id="about" class="bg-light">
-              <hr style="height:100pt; visibility:hidden;" />
+    </div>
+    <!-- /.container -->
 
-              <div class="container">
-                  <div class="row">
-                      <div class="col-lg-8 mx-auto">
-                        
-                      </div>
-                  </div>
-              </div>
-          </section>
-          <hr style="height:20pt; visibility:hidden;" />
-
-          <section id="contact" class="bg-light">
-              <hr style="height:100pt; visibility:hidden;" />
-
-              <div class="container">
-                  <div class="row">
-                      <div class="col-lg-8 mx-auto">
-                         
-                      </div>
-                  </div>
-              </div>
-          </section>
-          <hr style="height:50pt; visibility:hidden;" />
-
-      </div>
-  </div>
-  <!-- /.container -->
-
-  <!-- Footer -->
-  <footer id="footer" class="py-5 bg-dark footer">
-      <div class="container">
-          <p class="m-0 text-center text-white">Copyright &copy; Vynchronize 2018</p>
-      </div>
-      <!-- /.container -->
-  </footer>
+    <!-- Footer -->
+    <footer id="footer" class="py-5 bg-dark footer">
+        <!-- /.container -->
+    </footer>
 
     <script>
         var socket = io.connect();
@@ -347,7 +347,7 @@
         var nosymbols = new RegExp("^(([a-zA-Z0-9_-][a-zA-Z0-9 _-]*[a-zA-Z0-9_-])|([a-zA-Z0-9_-]*))$");
 
         // Chat stuff
-        $(function() {
+        $(function () {
             var $messageForm = $('#messageForm');
             var $message = $('#message');
             var $chat = $('#chat');
@@ -374,14 +374,14 @@
             // });
 
 
-            $messageForm.submit(function(e) {
+            $messageForm.submit(function (e) {
                 e.preventDefault();
                 // console.log("Submitted");
                 socket.emit('send message', $message.val());
                 $message.val('');
             });
 
-            socket.on('new message', function(data) {
+            socket.on('new message', function (data) {
                 var last_div = $('.chat > div:last')[0]
 
                 // This checks for the last user
@@ -411,7 +411,7 @@
             });
 
             // Submit user form
-            $userForm.submit(function(e) {
+            $userForm.submit(function (e) {
                 e.preventDefault();
                 // console.log("Submitted");
                 // New User
@@ -423,19 +423,19 @@
                 if ($username.val() == "") {
                     console.log("ENTER A NAME")
                     var noname = document.getElementById('missinginfo')
-                    noname.innerHTML = "Surely you have a name right? Enter it below!"
+                    noname.innerHTML = "이름을 입력하세요."
                 }
                 // If name is too long
                 else if ($username.val().length > 30) {
                     console.log("NAME IS TOO LONG")
                     var noname = document.getElementById('missinginfo')
-                    noname.innerHTML = "Your name can't possibly be over 30 characters!"
+                    noname.innerHTML = "이름은 30글자 미만으로 입력하세요."
                 }
                 // If roomnate
                 else if ($roomnum.val().length > 50) {
                     console.log("ROOM NAME IS TOO LONG")
                     var noname = document.getElementById('missinginfo')
-                    noname.innerHTML = "How are you going to remember a room code that has more than 50 characters?"
+                    noname.innerHTML = "방 코드는 50글자 미만으로 입력하세요."
                 }
                 // If Room contains symbols
                 // Can only be reached if the user decided to be sneaky and paste them!
@@ -444,10 +444,10 @@
                     var noname = document.getElementById('missinginfo')
                     noname.innerHTML = ""
                     var noname2 = document.getElementById('missinginfo2')
-                    noname2.innerHTML = "Please enter a room ID without symbols or leading/trailing whitespace!"
+                    noname2.innerHTML = "방 코드는 알파벳과 숫자로만 입력하세요."
                 } else {
                     username = $username.val()
-                    socket.emit('new user', $username.val(), function(data) {
+                    socket.emit('new user', $username.val(), function (data) {
                         if (data) {
                             $userFormArea.hide();
                             $roomArea.show();
@@ -477,7 +477,7 @@
                         }
                     });
                     // Join room
-                    socket.emit('new room', $roomnum.val(), function(data) {
+                    socket.emit('new room', $roomnum.val(), function (data) {
                         // This should only call back if the client is the host
                         if (data) {
                             console.log("Host is syncing the new socket!")
@@ -489,7 +489,7 @@
                 }
             });
 
-            socket.on('get users', function(data) {
+            socket.on('get users', function (data) {
                 var html = '';
                 for (i = 0; i < data.length; i++) {
                     html += '<li style="padding-right: 10em;" class="list-group-item chat-users">' + data[i] + '</li>';
@@ -502,7 +502,7 @@
 
             // Updates the queue
             // Parameters - vidlist, currPlayer, videoId
-            socket.on('get vidlist', function(data) {
+            socket.on('get vidlist', function (data) {
                 console.log("i am updating the queue")
                 var yt = data.vidlist.yt
                 var html = ''
@@ -520,7 +520,7 @@
 
 
             // Prevent special characters from being typed
-            $('#roomnum').on('keypress', function(event) {
+            $('#roomnum').on('keypress', function (event) {
                 var nosymbols = new RegExp("^[a-zA-Z0-9\s]+$");
                 var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
                 console.log(key)
@@ -533,7 +533,7 @@
             });
 
             // Prevent special characters from being typed
-            $('#username').on('keypress', function(event) {
+            $('#username').on('keypress', function (event) {
                 var nosymbols = new RegExp("^[a-zA-Z0-9\s]+$");
                 var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
                 // Allow enters and spaces to be used still
@@ -555,7 +555,7 @@
         function playAt(idx) {
             socket.emit('play at', {
                 idx: idx
-            }, function(data) {
+            }, function (data) {
                 var videoId = data.videoId
 
                 // Change the video
@@ -570,15 +570,15 @@
 
         // Turn off the lights!
         var per = 0;
-        $(document).ready(function() {
+        $(document).ready(function () {
             $("#persoff").css("height", $(document).height()).hide();
-            $(document).click(function(e) {
+            $(document).click(function (e) {
                 if (!$(e.target).hasClass('switch') && per == 1) {
                     $("#persoff").toggle();
                     per = 0;
                 }
             });
-            $(".switch").click(function() {
+            $(".switch").click(function () {
                 $("#persoff").toggle();
                 per += 1;
                 if (per == 2) {
@@ -588,14 +588,14 @@
         });
 
         // playlist
-        $(document).ready(function() {
-            $(".arrow-right").bind("click", function(event) {
+        $(document).ready(function () {
+            $(".arrow-right").bind("click", function (event) {
                 event.preventDefault();
                 $(".vid-list-container").stop().animate({
                     scrollLeft: "+=336"
                 }, 750);
             });
-            $(".arrow-left").bind("click", function(event) {
+            $(".arrow-left").bind("click", function (event) {
                 event.preventDefault();
                 $(".vid-list-container").stop().animate({
                     scrollLeft: "-=336"
@@ -604,7 +604,7 @@
         });
 
         // set id
-        socket.on('set id', function(data) {
+        socket.on('set id', function (data) {
             // Ensure no valid id too
             if (data.id != "" && nosymbols.test(data.id)) {
                 document.getElementById('roomnum').value = data.id

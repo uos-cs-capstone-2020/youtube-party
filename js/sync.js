@@ -288,7 +288,8 @@ var id = "M7lc1UVf-VE"
 // Calls the play/pause function
 socket.on('playVideoClient', function(data) {
     // Calls the proper play function for the player
-    if (currPlayer == 0) {
+    switch (currPlayer) {
+        case 0:
             play()
             break;
         default:
@@ -297,7 +298,8 @@ socket.on('playVideoClient', function(data) {
 });
 
 socket.on('pauseVideoClient', function(data) {
-    if (currPlayer == 0) {
+    switch (currPlayer) {
+        case 0:
             player.pauseVideo();
             break;
         default:

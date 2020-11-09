@@ -2,6 +2,19 @@
      margin-top: 30px;
  }
 
+ #roomList a:link{
+    text-decoration: none; color: #ffffff;
+ }
+ #roomList a:visited{
+    text-decoration: none; color: #ffffff;
+ }
+ #roomList a:active{
+    text-decoration: none; color: #ffffff;
+ }
+ #roomList a:hover{
+    text-decoration: none; color: #ffffff;
+ }
+ 
  #roomArea {
      display: none;
      margin-bottom: 5em;

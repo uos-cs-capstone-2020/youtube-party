@@ -62,6 +62,11 @@ io.sockets.on('connection', function(socket) {
         id: given_room
     })
 
+    // 방정보 주기
+    socket.emit('rooms',{
+        rooms:rooms
+    })
+
     // io.sockets.emit('broadcast',{ description: connections.length + ' clients connected!'});
 
     // For now have it be the same room for everyone!
@@ -119,6 +124,14 @@ io.sockets.on('connection', function(socket) {
             }
         }
 
+        socket.leave("room-" + socket.roomnum);
+        var currnetRoom = socket.adapter.rooms["room-"+socket.roomnum];
+        var userCount = currnetRoom ? currnetRoom.length : 0;
+        if(userCount===0){
+            rooms = rooms.filter(room => room!==socket.roomnum);
+            socket.broadcast.emit('removeRoom',{room:socket.roomnum})
+        }
+
         // Delete socket from userrooms
         delete userrooms[id]
 
@@ -145,6 +158,8 @@ io.sockets.on('connection', function(socket) {
 
         // Adds the room to a global array
         if (!rooms.includes(socket.roomnum)) {
+            socket.broadcast.emit("addRoom",{room:socket.roomnum});
+            console.log(socket.roomnum);
             rooms.push(socket.roomnum);
         }
 

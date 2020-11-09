@@ -111,6 +111,10 @@
                         <hr style="height:65pt; visibility:hidden;" />
                     </div>
                 </form>
+                <h2> Room List! </h2>
+                <div id="roomList">
+
+                </div>
             </div>
         </div>
 
@@ -615,6 +619,33 @@
             // Reset url for next person
             // Workaround
             socket.emit('reset url')
+        });
+
+        socket.on('rooms',({rooms})=>{
+                var roomList = document.querySelector("#roomList")
+                for( let room of rooms){
+                    var a = document.createElement('a');
+                    a.textContent=room;
+                    a.setAttribute('href',"/"+room);
+                    a.setAttribute('id',room);
+                    roomList.append(a);
+                    var br = document.createElement('br');
+                    a.append(br);
+        }});
+        socket.on('addRoom', ({room})=>{
+            console.log(room);
+            var roomList = document.querySelector("#roomList");    
+            var a= document.createElement('a');
+            a.textContent=room;
+            a.setAttribute('href',"/"+room);
+            a.setAttribute('id',room);
+            roomList.append(a);
+            var br = document.createElement('br');
+            a.append(br);
+        });
+
+        socket.on('removeRoom', ({room})=>{
+            $("a").remove("#"+room);
         });
 
         function copyInvite() {

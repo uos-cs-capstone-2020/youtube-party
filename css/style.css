@@ -212,6 +212,8 @@
      overflow: scroll;
      background-color: #6d6d6d;
      border-radius: 10px;
+     /*파이어폭스 스크롤바 숨김을 위해*/
+     scrollbar-width: none;
  }
 
  .message-well {
@@ -229,6 +231,8 @@
     height: 140px;
     width: 150px;
     overflow: scroll;
+    /*파이어폭스 스크롤바 숨김을 위해*/
+    scrollbar-width: none;
 }
 
  .invite-button {

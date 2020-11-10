@@ -223,14 +223,13 @@
  }
 
  .online-users {
-     padding: 5px !important;
-     margin-right: 20px;
-     float: right;
-     /* padding-right: 11em; */
-     height: 140px;
-     width: 150px;
-     overflow: scroll;
- }
+    padding: 5px !important;
+    float: right;
+    /* padding-right: 11em; */
+    height: 140px;
+    width: 150px;
+    overflow: scroll;
+}
 
  .invite-button {
      height: 90px;

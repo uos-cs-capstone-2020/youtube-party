@@ -112,7 +112,7 @@
                     </div>
                 </form>
                 <div class=RoomList>
-                    <h2> Room List </h2>
+                    <h2> 개설된 방 목록 </h2>
                     <div id="roomList">
                     </div>
                 </div>
@@ -127,7 +127,7 @@
 
 
                     <hr style="height:0pt; visibility:hidden;" />
-                    <h5 style="color:gary"><span id="hostlabel" class="label label-default"> Current Host: 안지영 </span>
+                    <h5 style="color:gary"><span id="hostlabel" class="label label-default"> 방장: 안지영 </span>
                     </h5>
 
                     <!----------------------------------- PLAYER AREA ----------------------------------->
@@ -170,15 +170,15 @@
                     <div id='persoff'></div>
 
                     <div class="topbotmargins">
-                        <input type="Video" style="max-width: 250px; margin-right: .5rem;  float: left;"
-                            class="form-control" id="inputVideoId" placeholder="Video ID / URL">
+                        <input type="Video" style="max-width: 230px; margin-right: .5rem;  float: left;"
+                            class="form-control" id="inputVideoId" placeholder="영상 url 입력"> 
                         <button id="enqueueButton" onclick="enqueueVideoParse(roomnum)" class="btn btn-primary"><i
-                                class="fas fa-plus"></i> Add to Queue</button>
+                                class="fas fa-plus"></i> 대기 목록 추가</button>
                         <button id="emptyButton" onclick="emptyQueue(roomnum)" class="btn btn-primary"><i
-                                class="fas fa-trash"></i> Empty Queue</button>
+                                class="fas fa-trash"></i> 대기 목록 비우기</button>
                         <button style="background-color: #272727" type="button" class=" btn btn-primary"
                             data-toggle="modal" data-target="#inviteModal"><i style="width: 15px; height: 15px;"
-                                class="fas fa-user-plus"></i>Invite</button>
+                                class="fas fa-user-plus"></i>초대</button>
                     </div>
                     <div>
                         <!-- <a class="ghost-button-full-color"><i class="far fa-times-circle"></i></a> -->
@@ -215,7 +215,7 @@
 
 
                     <hr style="height:0pt; visibility:hidden;" />
-                    <h5 style="color:gray;">chat room</h5>
+                    <h5 style="color:gray;">채팅방</h5>
 
                     <!-- Modal -->
                     <div id="inviteModal" class="modal fade" role="dialog">
@@ -224,11 +224,11 @@
                             <!-- Modal content-->
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h4 class="modal-title">Invite a Friend</h4>
+                                    <h4 class="modal-title">친구 초대 하기!</h4>
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
                                 <div class="modal-body">
-                                    <p>Send a friend your unique room link so they can watch videos too!</p>
+                                    <!-- <p>Send a friend your unique room link so they can watch videos too!</p> -->
                                     <!-- <p style="text-align: center;" id="invite">vynchronize.herokuapp.com/ROOMNUM</p> -->
                                     <input class="inv_input" id="inv_input" type="text"
                                         value="youtube-party-demo.herokuapp.com/ROOMNUM" class="field left" readonly>
@@ -236,11 +236,9 @@
                                 <div class="modal-footer">
                                     <div style="opacity: 1" class="tooltip">
                                         <button type="button" class="btn btn-default" onclick="copyInvite()"
-                                            onmouseout="outFunc()"><span class="tooltiptext" id="myTooltip">Copy to
-                                                clipboard</span><i class="fas fa-clipboard"></i> Copy to
-                                            Clipboard</button>
+                                            onmouseout="outFunc()"><span class="tooltiptext" id="myTooltip">클립 보드에 주소 복사</span><i class="fas fa-clipboard"></i> 클립 보드에 주소 복사</button>
                                     </div>
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
                                 </div>
                             </div>
 
@@ -259,7 +257,7 @@
                                 <div class="form-group">
 
                                     <!-- <label>Enter Message...</label> -->
-                                    <input class="form-control chat-form" id="message" placeholder="Enter Message..." />
+                                    <input class="form-control chat-form" id="message" placeholder="메세지 입력" />
                                     <!-- <textarea class="form-control" id="message"></textarea> -->
                                     <br />
                                     <!-- <input type="submit" class="btn btn-primary" value="Send Message" /> -->
@@ -299,7 +297,7 @@
                     </div>
                 </div>
                 <div class="col-lg-2">
-                    <h5 style="color: gray;">Online Users</h5>
+                    <h5 style="color: gray;">참가자</h5>
 
                     <div class="well online-users noscrollbar">
                         <ul class="list-group" id="users"></ul>

@@ -207,7 +207,7 @@
  }
 
  .chat {
-     width: 500px;
+     width: 100%;
      height: 378px;
      overflow: scroll;
      background-color: #6d6d6d;
@@ -219,7 +219,7 @@
  }
 
  .chat-form {
-     width: 500px;
+     width: 100%;
  }
 
  .online-users {

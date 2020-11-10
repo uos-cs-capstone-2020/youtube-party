@@ -1,12 +1,11 @@
 /* This stylesheet is specifically for mobile */
 
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 600px) {
     .h2 {
         font-size: 1.5rem;
     }
     .video, .chat {
-        width: 352px;
-        height: 198px;
+        width: 100%;
     }
     .chat-form {
         width: 100%;
@@ -48,25 +47,27 @@
 }
 
 /* Strange Screen Size */
-@media (max-width: 1200px) and (min-width: 992px){
+@media (max-width: 1200px) and (min-width: 601px){
     .video {
-        width: 551px;
-        height: 310px;
+        width: 100%;
     }
     .chat {
-        width: 390px;
-        height: 300px;
+        width: 100%;
+        height: 370px;
     }
     .chat-form {
-        width: 390px;
+        width: 100%;
     }
 }
 @media (max-width: 1300px) and (min-width: 1201px){
+    .video{
+        width: 100%;
+    }
     .chat {
-        width: 480px;
-        height: 300px;
+        width: 100%;
+        height: 370px;
     }
     .chat-form {
-        width: 480px;
+        width: 100%;
     }
 }

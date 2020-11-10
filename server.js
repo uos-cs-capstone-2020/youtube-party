@@ -191,12 +191,12 @@ io.sockets.on('connection', function(socket) {
             io.sockets.adapter.rooms['room-' + socket.roomnum].currPlayer = 0
             // Default video
             io.sockets.adapter.rooms['room-' + socket.roomnum].currVideo = {
-                yt: 'M7lc1UVf-VE',
+                yt: 'dyRsYk0LyA8',
             }
             // Previous Video
             io.sockets.adapter.rooms['room-' + socket.roomnum].prevVideo = {
                 yt: {
-                    id: 'M7lc1UVf-VE',
+                    id: 'dyRsYk0LyA8',
                     time: 0
                 },
             }

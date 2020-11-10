@@ -222,14 +222,15 @@
 
  .chat-form {
      width: 100%;
+     
  }
 
  .online-users {
     padding: 5px !important;
     float: right;
     /* padding-right: 11em; */
-    height: 140px;
-    width: 150px;
+    height: 200px;
+    width: 100%;
     overflow: scroll;
     /*파이어폭스 스크롤바 숨김을 위해*/
     scrollbar-width: none;
@@ -329,7 +330,7 @@
  /* PLAYLIST? */
 
  .vid-list-container {
-     width: 92%;
+     width: 100%;
      overflow: hidden;
      margin-top: 20px;
      margin-left: 4%;

@@ -186,7 +186,7 @@
                       <button id="previousButton" onclick="prevVideo(roomnum)" class="btn btn-primary"><i class="fas fa-step-backward"></i> Previous</button>
                       <button id="nextButton" onclick="playNext(roomnum)" class="btn btn-primary"><i class="fas fa-step-forward"></i> Next</button> -->
 
-                        <br />
+                        <!--<br />-->
 
                     </div>
                     <!-- <input type="file" id="html5-input" /> -->
@@ -194,7 +194,7 @@
 
 
 
-                    <br />
+                    <!-- <br /> -->
 
                     <!-- HTML5 player input -->
                     <!-- <input type="file" id="html5-input" /> -->
@@ -215,8 +215,13 @@
 
 
                     <hr style="height:0pt; visibility:hidden;" />
-                    <h5 style="color:gray;">채팅방</h5>
-
+                    <div style="display:flex; margin-bottom:0.05em;">
+                        <h5 style="color:gray;">채팅방</h5>
+                        
+                        <button style="margin-top:-0.8em; background-color:#585858; font-size:0.8em; color:gray; border-color: #585858;" type="button" class="btn btn-primary"
+                                data-toggle="modal" data-target="#memberModal"><i style="height:fit-content"
+                                    class="fas fa-user"></i>참가자</button>
+                    </div>
                     <!-- Modal -->
                     <div id="inviteModal" class="modal fade" role="dialog">
                         <div class="modal-dialog">
@@ -244,6 +249,25 @@
 
                         </div>
                     </div>
+                    <!-- 현재 참가자를 보여주는 Modal -->
+                    <div id="memberModal" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" style="color:#6d6d6d">참가자</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="well online-users noscrollbar">
+                                        <ul class="list-group" id="users"></ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
                     <!-- </div> -->
                     <!-- </div> -->
 
@@ -259,9 +283,9 @@
                                     <!-- <label>Enter Message...</label> -->
                                     <input class="form-control chat-form" id="message" placeholder="메세지 입력" autocomplete=”off”/>
                                     <!-- <textarea class="form-control" id="message"></textarea> -->
-                                    <br />
+                                    <!--<br />-->
                                     <!-- <input type="submit" class="btn btn-primary" value="Send Message" /> -->
-                                    <br />
+                                    <!--<br />-->
                                 </div>
                             </form>
                         </div>
@@ -273,7 +297,7 @@
 
             <!-- /.row -->
             <div class="row">
-                <div class="col-lg-10">
+                <div class="col-lg-12">
                     <div id="visual-queue" class="vid-list-container">
                         <ul class="vid-list" id="vidlist">
                             <li class="vid-item">
@@ -296,14 +320,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-2">
+            <!-- <div class="col-lg-2">
                     <h5 style="color: gray;">참가자</h5>
 
                     <div class="well online-users noscrollbar">
                         <ul class="list-group" id="users"></ul>
 
                     </div>
-                </div>
+                </div>-->
             </div>
 
             <section id="about" class="bg-light">

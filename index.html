@@ -40,9 +40,9 @@
     <link href="css/style.css" rel="stylesheet">
     <link href="css/mobile-style.css" rel="stylesheet">
 
-    <!-- <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="img/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png"> -->
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
 
 </head>
 
@@ -51,7 +51,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand js-scroll-trigger" href="#Home"><img src="img/logo.png" alt="Vynchronize logo"
+            <a class="navbar-brand js-scroll-trigger" href="#Home"><img src="img/logo.png" alt="youtube party logo"
                     height="40" width="40"> Youtube Party</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -68,7 +68,7 @@
                         <a id="chat-nav" class="nav-link js-scroll-trigger hide" href="#messageArea">Chat</a>
                     </li>
                     <li class="nav-item">
-                        <a id="about-nav" class="nav-link js-scroll-trigger hide" href="#about">Room</a>
+                        <a id="about-nav" class="nav-link js-scroll-trigger hide" href="#playlist">Playlist</a>
                     </li>
                     <li class="nav-item">
                         <a id="contact-nav" class="nav-link js-scroll-trigger hide" href="#contact">Contact</a>
@@ -86,31 +86,33 @@
         
 
         <!-- User Form (First Page) -->
-        <div id="userFormArea" class="row">
-            <div class="col-md-12">
+        <div id="userFormArea" class="row" >
+            <div class="col-md-12 row" style="margin:0;">
                 <!-- ADD DESCRIPTION HERE -->
-                <h2> 접속 정보 입력 </h2>
-                <form id="userForm">
-                    <div class="form-group">
-                        <p style="color:red; margin-bottom: 0px" id="missinginfo"></p>
-                        <label class="col-sm-3">이름</label>
-                        <input class="form-control col-sm-6" id="username" autocomplete="off" />
-                        <br />
-                        <p style="color:red; margin-bottom: 0px" id="missinginfo2"></p>
-                        <label class="col-sm-3">
-                            방 코드
-                            <button type="button" onClick="randomroom()" class="btn btn-primary random">무작위 생성</button>
-                        </label>
+                <div id="main1">
+                    <h2> 접속 정보 입력 </h2>
+                    <form id="userForm">
+                        <div class="form-group">
+                            <p style="color:red; margin-bottom: 0px" id="missinginfo"></p>
+                            <label class="col-sm-12">이름</label>
+                            <input class="form-control col-sm-12" id="username" autocomplete="off" />
+                            <br />
+                            <p style="color:red; margin-bottom: 0px" id="missinginfo2"></p>
+                            <label class="col-sm-12">
+                                방 코드
+                                <button type="button" onClick="randomroom()" class="btn btn-primary random">무작위 생성</button>
+                            </label>
 
-                        <br />
-                        <input class="form-control col-sm-6" id="roomnum" autocomplete="off" />
-                        <br />
+                            <br />
+                            <input class="form-control col-sm-12" id="roomnum" autocomplete="off" />
+                            <br />
 
-                        <input style="margin-top: 10px;" type="submit" class="btn btn-primary" value="접속" />
-                        <hr style="height:65pt; visibility:hidden;" />
-                    </div>
-                </form>
-                <div class=RoomList>
+                            <input style="margin-top: 10px;" type="submit" class="btn btn-primary" value="접속" />
+                            <!--<hr style="height:65pt; visibility:hidden;" /> -->
+                        </div>
+                    </form>
+                </div>
+                <div class="RoomList main2">
                     <h2> 개설된 방 목록 </h2>
                     <div id="roomList">
                     </div>
@@ -280,6 +282,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div id="visual-queue" class="vid-list-container">
+                        <section id="playlist" />
                         <ul class="vid-list" id="vidlist">
                             <li class="vid-item">
                                 <!-- <div class="thumb">
@@ -311,7 +314,7 @@
                 </div>-->
             </div>
 
-            <section id="about" class="bg-light">
+            <!--<section id="about" class="bg-light">
                 <hr style="height:100pt; visibility:hidden;" />
 
                 <div class="container">
@@ -322,9 +325,9 @@
                     </div>
                 </div>
             </section>
-            <hr style="height:20pt; visibility:hidden;" />
+            <hr style="height:20pt; visibility:hidden;" /> -->
 
-            <section id="contact" class="bg-light">
+            <!--<section id="contact" class="bg-light">
                 <hr style="height:100pt; visibility:hidden;" />
 
                 <div class="container">
@@ -335,7 +338,7 @@
                     </div>
                 </div>
             </section>
-            <hr style="height:50pt; visibility:hidden;" />
+            <hr style="height:50pt; visibility:hidden;" />-->
 
         </div>
     </div>
@@ -343,6 +346,7 @@
 
     <!-- Footer -->
     <footer id="footer" class="py-5 bg-dark footer">
+        <section id="contact" />
         <!-- /.container -->
     </footer>
 

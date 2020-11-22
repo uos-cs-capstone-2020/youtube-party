@@ -608,7 +608,9 @@ io.sockets.on('connection', function(socket) {
         callback(true);
         // Data is username
         var encodedUser = data.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-        socket.username = encodedUser;
+        
+        //같은이름 사용자 식별
+        socket.username = encodedUser+"("+socket.id.slice(0,5)+")";
         //console.log(socket.username)
         users.push(socket.username);
         updateUsernames();

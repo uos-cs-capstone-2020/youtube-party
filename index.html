@@ -397,6 +397,10 @@
                 var last_div = $('.chat > div:last')[0]
                 // 메시지 전송시간을 표시합니다.
                 let now = new Date();
+                let h = now.getHours();
+                let m = now.getMinutes();
+                let am = "am";
+                if( h>=12 ) am = "pm";
 
                 // This checks for the last user
                 // If you are the last user, attach the message instead of creating a new div
@@ -411,7 +415,8 @@
                     }
                 }
                 if (data.user != last_user) {
-                    $chat.append('<div class="well well-sm message-well"><strong>' + data.user + '</strong>'+now.toLocaleTimeString()+': ' + data.msg + '</div>');
+                    $chat.append('<div class="well well-sm message-well"><strong>' + data.user + '</strong>'
+                        +'<a class="time">'+am+" "+h%12+':'+m+'</a>'+" : "+ data.msg + '</div>');
                     // $vidlist.append('<div class="vid-item"><div class="thumb"><img src="http://img.youtube.com/vi/eg6kNoJmzkY/0.jpg"></div><div class="desc">Jessica Hernandez & the Deltas - Dead Brains</div></div>');
                 }
                 // If you sent the last message, append to previous

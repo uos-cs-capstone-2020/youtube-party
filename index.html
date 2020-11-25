@@ -114,8 +114,8 @@
                 </div>
                 <div class="RoomList main2">
                     <h2> 개설된 방 목록 </h2>
-                    <div id="roomList">
-                    </div>
+                    <ul id="roomList">
+                    </ul>
                 </div>
             </div>
         </div>
@@ -578,7 +578,7 @@
                 })
             })
         }
-
+       
 
         // Turn off the lights!
         var per = 0;
@@ -629,16 +629,40 @@
             socket.emit('reset url')
         });
 
+        var vid="dyRsYk0LyA8"
         socket.on('rooms',({rooms})=>{
                 var roomList = document.querySelector("#roomList")
                 for( let room of rooms){
-                    var a = document.createElement('a');
+                    var li = document.createElement('li');
+                    var div_outer=document.createElement('div');
+                    var div_thumbnail=document.createElement('div');
+                    var div_user=document.createElement('div');
+                    var img_thumnail=document.createElement('img');
+                    var a=document.createElement('a');
+                    var vid="dyRsYk0LyA8"
+                    
+                    socket.emit('curVideo',{room:room});
+                    socket.on('get videoId',function(data){
+                        vid=data.videoId;
+                        
+
+                    })
+                    img_thumnail.setAttribute('id','img_room/'+room);
+                    img_thumnail.setAttribute('src','https://img.youtube.com/vi/'+vid+'/default.jpg');
+                    console.log('비디오아이디'+vid);
+                  
+                    div_thumbnail.append(img_thumnail);
+                    div_outer.append(div_thumbnail);
+                    div_outer.append(div_user);
+
                     a.textContent=room;
                     a.setAttribute('href',"/"+room);
-                    a.setAttribute('id',room);
-                    roomList.append(a);
-                    var br = document.createElement('br');
-                    a.append(br);
+                    a.append(div_outer);
+
+                    li.setAttribute('id',room);
+                    li.append(a);
+                    roomList.append(li);
+
         }});
         socket.on('addRoom', ({room})=>{
             console.log(room);
@@ -653,9 +677,9 @@
         });
 
         socket.on('removeRoom', ({room})=>{
-            $("a").remove("#"+room);
+            $("li").remove("#"+room);
         });
-
+   
         function copyInvite() {
             /* Get the text field */
             var copyText = document.getElementById("inv_input");

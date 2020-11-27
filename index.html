@@ -651,7 +651,7 @@
                     var div_user=document.createElement('div');
                     var img_thumnail=document.createElement('img');
                     var vid=room.vid;
-                    img_thumnail.setAttribute('id','img_room'+room);
+                    img_thumnail.setAttribute('id','img_room'+room.name);
                     img_thumnail.setAttribute('src','https://img.youtube.com/vi/'+vid+'/default.jpg');
                     div_thumbnail.append(img_thumnail);
                     div_outer.append(div_thumbnail);
@@ -684,45 +684,45 @@
 
         socket.on('vid_chg',({name,vid})=>{
             var thumb = document.querySelector("#img_room"+name);
-            if(vid)thumb.setAttribute("src",'https://img.youtube.com/vi/'+vid+'/default.jpg');
+            if(vid&&thumb)thumb.setAttribute("src",'https://img.youtube.com/vi/'+vid+'/default.jpg');
         });
         
         socket.on('addRoom', ({room})=>{
            // console.log(room);
-            var roomList = document.querySelector("#roomList"); 
-            var li = document.createElement('li');
+            var roomList2 = document.querySelector("#roomList"); 
+            var li2 = document.createElement('li');
 
-            var a= document.createElement('a');
+            var a2= document.createElement('a');
 
 
             //썸네일 
-            var div_outer=document.createElement('div');
-            var div_thumbnail=document.createElement('div');
-            var div_user=document.createElement('div');
-            var img_thumnail=document.createElement('img');
-            var vid="dyRsYk0LyA8";
-            img_thumnail.setAttribute('id','img_room'+room);
-            img_thumnail.setAttribute('src','https://img.youtube.com/vi/'+vid+'/default.jpg');
-            div_thumbnail.append(img_thumnail);
-            div_outer.append(div_thumbnail);
-            div_outer.append(div_user);
+            var div_outer2=document.createElement('div');
+            var div_thumbnail2=document.createElement('div');
+            var div_user2=document.createElement('div');
+            var img_thumnail2=document.createElement('img');
+            var vid2="dyRsYk0LyA8";
+            img_thumnail2.setAttribute('id','img_room'+room);
+            img_thumnail2.setAttribute('src','https://img.youtube.com/vi/'+vid2+'/default.jpg');
+            div_thumbnail2.append(img_thumnail2);
+            div_outer2.append(div_thumbnail2);
+            div_outer2.append(div_user2);
             //
             //a.append(div_outer);
 
-            li.append(a);
-            li.setAttribute('id',room+"li");
+            li2.append(a2);
+            li2.setAttribute('id',room+"li");
 
-            a.textContent=room;
-            a.setAttribute('href',"/"+room);
-            a.setAttribute('id',room);
-            roomList.append(li);
-            var span = document.createElement('span');
-            span.textContent=" - 참가자(1)";
-            span.setAttribute('id',room+"cnt");
-            a.append(span);
-            li.append(div_outer);
-            var br = document.createElement('br');
-            a.append(br);
+            a2.textContent=room;
+            a2.setAttribute('href',"/"+room);
+            a2.setAttribute('id',room);
+            roomList2.append(li2);
+            var span2 = document.createElement('span');
+            span2.textContent=" - 참가자(1)";
+            span2.setAttribute('id',room+"cnt");
+            a2.append(span2);
+            li2.append(div_outer2);
+            var br2 = document.createElement('br');
+            a2.append(br2);
         });
 
         socket.on('removeRoom', ({room})=>{

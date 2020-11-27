@@ -176,7 +176,7 @@ io.sockets.on('connection', function(socket) {
             io.to("Lobby").emit("addRoom",{room:socket.roomnum});
             console.log(socket.roomnum);
             rooms.push(socket.roomnum);
-            roomInfo.push({name:socket.roomnum,cnt:0});
+            roomInfo.push({name:socket.roomnum,cnt:0,vid:"dyRsYk0LyA8"});
             
             
         }
@@ -488,6 +488,9 @@ io.sockets.on('connection', function(socket) {
 
     // Change video
     socket.on('change video', function(data, callback) {
+
+        
+
         if (io.sockets.adapter.rooms['room-' + socket.roomnum] !== undefined) {
             var roomnum = data.room
             var videoId = data.videoId
@@ -527,6 +530,13 @@ io.sockets.on('connection', function(socket) {
         // }, 1000);
 
         // console.log(io.sockets.adapter.rooms['room-1'])
+
+        roomInfo.forEach(room=>{
+            if(room.name===data.room){ // 영상 바뀐 방 썸네일 변경
+                io.to("Lobby").emit('vid_chg',{name:room.name,vid:data.videoId});
+                room.vid = data.videoId;
+            }
+        })
     });
 
     // Change to previous video

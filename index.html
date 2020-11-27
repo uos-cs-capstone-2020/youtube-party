@@ -114,8 +114,8 @@
                 </div>
                 <div class="RoomList main2">
                     <h2> 개설된 방 목록 </h2>
-                    <div id="roomList">
-                    </div>
+                    <ul id="roomList">
+                    </ul>
                 </div>
             </div>
         </div>
@@ -642,15 +642,36 @@
                 for( let room of roomInfo){
                     var aSelected = document.querySelector("#"+room.name);
                     if(aSelected) continue;
+                    var li = document.createElement('li');
                     var a = document.createElement('a');
+
+                    //썸네일 
+                    var div_outer=document.createElement('div');
+                    var div_thumbnail=document.createElement('div');
+                    var div_user=document.createElement('div');
+                    var img_thumnail=document.createElement('img');
+                    var vid=room.vid;
+                    img_thumnail.setAttribute('id','img_room'+room);
+                    img_thumnail.setAttribute('src','https://img.youtube.com/vi/'+vid+'/default.jpg');
+                    div_thumbnail.append(img_thumnail);
+                    div_outer.append(div_thumbnail);
+                    div_outer.append(div_user);
+                    //
+                    //a.append(div_outer);
+
+
+                    li.append(a);
+                    li.setAttribute('id',room.name+"li");
                     a.textContent=room.name;
                     a.setAttribute('href',"/"+room.name);
                     a.setAttribute('id',room.name);
-                    roomList.append(a);
+                    roomList.append(li);
+
                     var span = document.createElement('span');
-                    span.textContent=" - 참가자:("+room.cnt+")";
+                    span.textContent=" - 참가자("+room.cnt+")";
                     span.setAttribute('id',room.name+"cnt");
                     a.append(span);
+                    li.append(div_outer);
                     var br = document.createElement('br');
                     a.append(br);
         }});
@@ -658,21 +679,48 @@
 
         socket.on('cntCng',({name,cnt})=>{
             var span = document.querySelector("#"+name+"cnt");
-            span.textContent=" - 참가자:("+cnt+")";
+            span.textContent=" - 참가자("+cnt+")";
+        });
+
+        socket.on('vid_chg',({name,vid})=>{
+            var thumb = document.querySelector("#img_room"+name);
+            if(vid)thumb.setAttribute("src",'https://img.youtube.com/vi/'+vid+'/default.jpg');
         });
         
         socket.on('addRoom', ({room})=>{
            // console.log(room);
             var roomList = document.querySelector("#roomList"); 
+            var li = document.createElement('li');
+
             var a= document.createElement('a');
+
+
+            //썸네일 
+            var div_outer=document.createElement('div');
+            var div_thumbnail=document.createElement('div');
+            var div_user=document.createElement('div');
+            var img_thumnail=document.createElement('img');
+            var vid="dyRsYk0LyA8";
+            img_thumnail.setAttribute('id','img_room'+room);
+            img_thumnail.setAttribute('src','https://img.youtube.com/vi/'+vid+'/default.jpg');
+            div_thumbnail.append(img_thumnail);
+            div_outer.append(div_thumbnail);
+            div_outer.append(div_user);
+            //
+            //a.append(div_outer);
+
+            li.append(a);
+            li.setAttribute('id',room+"li");
+
             a.textContent=room;
             a.setAttribute('href',"/"+room);
             a.setAttribute('id',room);
-            roomList.append(a);
+            roomList.append(li);
             var span = document.createElement('span');
-            span.textContent=" - 참가자:(1)";
+            span.textContent=" - 참가자(1)";
             span.setAttribute('id',room+"cnt");
             a.append(span);
+            li.append(div_outer);
             var br = document.createElement('br');
             a.append(br);
         });
@@ -680,6 +728,7 @@
         socket.on('removeRoom', ({room})=>{
             $("a").remove("#"+room);
             $("span").remove("#"+room+"cnt");
+            $("li").remove("#"+room+"li");
         });
 
         function copyInvite() {

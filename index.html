@@ -155,7 +155,7 @@
 
                     <div class="topbotmargins">
                         <input type="Video" style="max-width: 230px; margin-right: .5rem;  float: left;"
-                            class="form-control" id="inputVideoId" placeholder="영상 url 입력"> 
+                            class="form-control" id="inputVideoId" onFocus="this.value=''" placeholder="영상 url 입력"> 
                         <button id="enqueueButton" onclick="enqueueVideoParse(roomnum)" class="btn btn-primary"><i
                                 class="fas fa-plus"></i> 대기 목록 추가</button>
                         <button id="emptyButton" onclick="emptyQueue(roomnum)" class="btn btn-primary"><i
@@ -395,6 +395,12 @@
 
             socket.on('new message', function (data) {
                 var last_div = $('.chat > div:last')[0]
+                // 메시지 전송시간을 표시합니다.
+                let now = new Date();
+                let h = now.getHours();
+                let m = now.getMinutes();
+                let am = "am";
+                if( h>=12 ) am = "pm";
 
                 // This checks for the last user
                 // If you are the last user, attach the message instead of creating a new div
@@ -409,7 +415,8 @@
                     }
                 }
                 if (data.user != last_user) {
-                    $chat.append('<div class="well well-sm message-well"><strong>' + data.user + '</strong>: ' + data.msg + '</div>');
+                    $chat.append('<div class="well well-sm message-well"><strong>' + data.user + '</strong>'
+                        +'<a class="time">'+am+" "+h%12+':'+m+'</a>'+" : "+ data.msg + '</div>');
                     // $vidlist.append('<div class="vid-item"><div class="thumb"><img src="http://img.youtube.com/vi/eg6kNoJmzkY/0.jpg"></div><div class="desc">Jessica Hernandez & the Deltas - Dead Brains</div></div>');
                 }
                 // If you sent the last message, append to previous
@@ -417,6 +424,7 @@
                     last_div.innerHTML = last_div.innerHTML + " <br> " + data.msg
                     // $vidlist.append('<div class="vid-item"><div class="thumb"><img src="http://img.youtube.com/vi/eg6kNoJmzkY/0.jpg"></div><div class="desc">Jessica Hernandez & the Deltas - Dead Brains</div></div>');
                 }
+
                 // $chat.scrollTop = $chat.scrollHeight;
                 // Auto scroll on each message send!
                 $('div#chat').scrollTop($('div#chat')[0].scrollHeight)
@@ -484,7 +492,7 @@
                             // Sets the invite link (roomnum)
                             // document.getElementById('invite').innerHTML = "vynchronize.herokuapp.com/" + roomnum
                             document.getElementById("inv_input").value = "youtube-party-demo.herokuapp.com/" + roomnum
-                            history.pushState('', 'Vynchronize', roomnum);
+                            history.pushState('', 'youtube-party', roomnum);
 
                         }
                     });

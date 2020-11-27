@@ -586,7 +586,7 @@
                 })
             })
         }
-
+       
 
         // Turn off the lights!
         var per = 0;
@@ -646,10 +646,12 @@
                     var a = document.createElement('a');
 
                     //썸네일 
+
                     var div_outer=document.createElement('div');
                     var div_thumbnail=document.createElement('div');
                     var div_user=document.createElement('div');
                     var img_thumnail=document.createElement('img');
+
                     var vid=room.vid;
                     img_thumnail.setAttribute('id','img_room'+room.name);
                     img_thumnail.setAttribute('src','https://img.youtube.com/vi/'+vid+'/default.jpg');
@@ -674,6 +676,7 @@
                     li.append(div_outer);
                     var br = document.createElement('br');
                     a.append(br);
+
         }});
 
 
@@ -726,11 +729,13 @@
         });
 
         socket.on('removeRoom', ({room})=>{
+
             $("a").remove("#"+room);
             $("span").remove("#"+room+"cnt");
             $("li").remove("#"+room+"li");
-        });
 
+        });
+   
         function copyInvite() {
             /* Get the text field */
             var copyText = document.getElementById("inv_input");

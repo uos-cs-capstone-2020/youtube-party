@@ -486,6 +486,16 @@ io.sockets.on('connection', function(socket) {
         }
     })
 
+    socket.on('curVideo',function (data){
+        var roomnum=data.room
+        var curvideoId=io.sockets.adapter.rooms['room-' + roomnum].currVideo.yt;
+        console.log('curvideoid'+curvideoId);
+        socket.broadcast.emit('get videoId',{
+            room:roomnum,
+            videoId:curvideoId
+        })
+
+    })
     // Change video
     socket.on('change video', function(data, callback) {
 
@@ -514,7 +524,7 @@ io.sockets.on('connection', function(socket) {
             io.sockets.in("room-" + roomnum).emit('changeVideoClient', {
                 videoId: videoId
             });
-
+          
             // If called from previous video, do a callback to seek to the right time
             if (data.prev) {
                 // Call back to return the video id

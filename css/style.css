@@ -223,9 +223,12 @@
 
  .chat-form {
      width: 100%;
-     
  }
 
+ .time {
+    font-size: 0.7em;
+    color: #6d6d6d;
+ }
  .online-users {
     padding: 5px !important;
     float: right;

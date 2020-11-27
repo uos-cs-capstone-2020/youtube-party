@@ -7,6 +7,7 @@ var io = require('socket.io').listen(server);
 users = [];
 connections = [];
 rooms = [];
+roomInfo = []; 
 // Store all of the sockets and their respective room numbers
 userrooms = {}
 
@@ -54,6 +55,7 @@ var roomno = 1;
 
 io.sockets.on('connection', function(socket) {
     // Connect Socket
+    socket.join("Lobby");
     connections.push(socket);
     console.log('Connected: %s sockets connected', connections.length);
 
@@ -62,9 +64,16 @@ io.sockets.on('connection', function(socket) {
         id: given_room
     })
 
+
+    
     // 방정보 주기
     socket.emit('rooms',{
         rooms:rooms
+    })
+
+
+    socket.emit('roomInfo',{
+        roomInfo,
     })
 
     // io.sockets.emit('broadcast',{ description: connections.length + ' clients connected!'});
@@ -125,11 +134,17 @@ io.sockets.on('connection', function(socket) {
         }
 
         socket.leave("room-" + socket.roomnum);
+        roomInfo.forEach(room=> {if (room.name === socket.roomnum){
+            room.cnt--;//방인원 감소시키기
+            io.to("Lobby").emit('cntCng',{name:room.name,cnt:room.cnt});
+        } })
+
         var currnetRoom = socket.adapter.rooms["room-"+socket.roomnum];
         var userCount = currnetRoom ? currnetRoom.length : 0;
         if(userCount===0){
             rooms = rooms.filter(room => room!==socket.roomnum);
-            socket.broadcast.emit('removeRoom',{room:socket.roomnum})
+            roomInfo = roomInfo.filter(room=> room.name !== socket.roomnum);
+            io.to("Lobby").emit('removeRoom',{room:socket.roomnum})
         }
 
         // Delete socket from userrooms
@@ -158,9 +173,12 @@ io.sockets.on('connection', function(socket) {
 
         // Adds the room to a global array
         if (!rooms.includes(socket.roomnum)) {
-            socket.broadcast.emit("addRoom",{room:socket.roomnum});
+            io.to("Lobby").emit("addRoom",{room:socket.roomnum});
             console.log(socket.roomnum);
             rooms.push(socket.roomnum);
+            roomInfo.push({name:socket.roomnum,cnt:0,vid:"dyRsYk0LyA8"});
+            
+            
         }
 
         // Checks if the room exists or not
@@ -180,8 +198,13 @@ io.sockets.on('connection', function(socket) {
         }
 
         // Actually join the room
+        socket.leave("Lobby");
         console.log(socket.username + " connected to room-" + socket.roomnum)
         socket.join("room-" + socket.roomnum);
+        roomInfo.forEach(room=> {if (room.name === socket.roomnum){
+            room.cnt++;
+            io.to("Lobby").emit('cntCng',{name:room.name,cnt:room.cnt});
+        } })// 방인원 증가 시키기
 
         // Sets the default values when first initializing
         if (init) {
@@ -475,6 +498,9 @@ io.sockets.on('connection', function(socket) {
     })
     // Change video
     socket.on('change video', function(data, callback) {
+
+        
+
         if (io.sockets.adapter.rooms['room-' + socket.roomnum] !== undefined) {
             var roomnum = data.room
             var videoId = data.videoId
@@ -514,6 +540,13 @@ io.sockets.on('connection', function(socket) {
         // }, 1000);
 
         // console.log(io.sockets.adapter.rooms['room-1'])
+
+        roomInfo.forEach(room=>{
+            if(room.name===data.room){ // 영상 바뀐 방 썸네일 변경
+                io.to("Lobby").emit('vid_chg',{name:room.name,vid:data.videoId});
+                room.vid = data.videoId;
+            }
+        })
     });
 
     // Change to previous video

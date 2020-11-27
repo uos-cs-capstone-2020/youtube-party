@@ -637,31 +637,49 @@
             socket.emit('reset url')
         });
 
-        socket.on('rooms',({rooms})=>{
+        socket.on('roomInfo',({roomInfo})=>{
                 var roomList = document.querySelector("#roomList")
-                for( let room of rooms){
+                for( let room of roomInfo){
+                    var aSelected = document.querySelector("#"+room.name);
+                    if(aSelected) continue;
                     var a = document.createElement('a');
-                    a.textContent=room;
-                    a.setAttribute('href',"/"+room);
-                    a.setAttribute('id',room);
+                    a.textContent=room.name;
+                    a.setAttribute('href',"/"+room.name);
+                    a.setAttribute('id',room.name);
                     roomList.append(a);
+                    var span = document.createElement('span');
+                    span.textContent=" - 참가자:("+room.cnt+")";
+                    span.setAttribute('id',room.name+"cnt");
+                    a.append(span);
                     var br = document.createElement('br');
                     a.append(br);
         }});
+
+
+        socket.on('cntCng',({name,cnt})=>{
+            var span = document.querySelector("#"+name+"cnt");
+            span.textContent=" - 참가자:("+cnt+")";
+        });
+        
         socket.on('addRoom', ({room})=>{
-            console.log(room);
-            var roomList = document.querySelector("#roomList");    
+           // console.log(room);
+            var roomList = document.querySelector("#roomList"); 
             var a= document.createElement('a');
             a.textContent=room;
             a.setAttribute('href',"/"+room);
             a.setAttribute('id',room);
             roomList.append(a);
+            var span = document.createElement('span');
+            span.textContent=" - 참가자:(1)";
+            span.setAttribute('id',room+"cnt");
+            a.append(span);
             var br = document.createElement('br');
             a.append(br);
         });
 
         socket.on('removeRoom', ({room})=>{
             $("a").remove("#"+room);
+            $("span").remove("#"+room+"cnt");
         });
 
         function copyInvite() {

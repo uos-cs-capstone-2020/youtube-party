@@ -659,6 +659,16 @@ io.sockets.on('connection', function(socket) {
         updateUsernames();
     });
 
+    // 유저 입퇴장시 채팅에 알림.
+    socket.on('new user entering', function(data) {
+        var encodedMsg = data.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        // console.log(data);
+        io.sockets.in("room-" + socket.roomnum).emit('user alert', {
+            msg: encodedMsg,
+            user: socket.username
+        });
+    });
+
     // Changes time for a specific socket
     socket.on('change time', function(data) {
         // console.log(data);

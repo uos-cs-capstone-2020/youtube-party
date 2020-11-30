@@ -400,7 +400,8 @@
                 let h = now.getHours();
                 let m = now.getMinutes();
                 let am = "am";
-                if( h>=12 ) am = "pm";
+                if( h>=12 && h<24 ) am="pm";
+                if( h>12 ) h=h-12;
 
                 // This checks for the last user
                 // If you are the last user, attach the message instead of creating a new div
@@ -416,7 +417,7 @@
                 }
                 if (data.user != last_user) {
                     $chat.append('<div class="well well-sm message-well"><strong>' + data.user + '</strong>'
-                        +'<a class="time">'+am+" "+h%12+':'+m+'</a>'+" : "+ data.msg + '</div>');
+                        +' <a class="time">'+am+" "+h+':'+m+'</a>'+" : "+ data.msg + '</div>');
                     // $vidlist.append('<div class="vid-item"><div class="thumb"><img src="http://img.youtube.com/vi/eg6kNoJmzkY/0.jpg"></div><div class="desc">Jessica Hernandez & the Deltas - Dead Brains</div></div>');
                 }
                 // If you sent the last message, append to previous
@@ -428,6 +429,20 @@
                 // $chat.scrollTop = $chat.scrollHeight;
                 // Auto scroll on each message send!
                 $('div#chat').scrollTop($('div#chat')[0].scrollHeight)
+            });
+
+            // 유저의 입/퇴장을 채팅창에 알립니다.
+            socket.on('user alert', function (data) {
+
+                // 메시지 전송시간을 표시합니다.
+                let now = new Date();
+                let h = now.getHours();
+                let m = now.getMinutes();
+                let am = "am";
+                if( h>=12 && h<24 ) am="pm";
+                if( h>12 ) h=h-12;
+
+                $chat.append('<div class="userAlert"><i>' + data.user+  data.msg + '</i>'+'<a class="time"> ('+am+" "+h+':'+m+')</a>'+'</div>');
             });
 
             // Submit user form
@@ -493,7 +508,8 @@
                             // document.getElementById('invite').innerHTML = "vynchronize.herokuapp.com/" + roomnum
                             document.getElementById("inv_input").value = "youtube-party-demo.herokuapp.com/" + roomnum
                             history.pushState('', 'youtube-party', roomnum);
-
+                            
+                            socket.emit('new user entering', '님이 입장했습니다' );
                         }
                     });
                     // Join room

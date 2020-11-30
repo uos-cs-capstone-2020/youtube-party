@@ -225,6 +225,12 @@
      width: 100%;
  }
 
+ .userAlert {
+     display: block;
+     text-align: center;
+     margin: 0.4em auto;
+     font-size: 0.8em;
+ }
  .time {
     font-size: 0.7em;
     color: #6d6d6d;

@@ -52,6 +52,11 @@ socket.on('changeHostLabel', function(data) {
     // })
 })
 
+socket.on('setRoomTitle', function(data){
+    var titlelabel = document.getElementById('titlelabel')
+    titlelabel.innerHTML = "<i class=\"fas fa-video\"></i> " + data.title
+})
+
 // When the host leaves, the server calls this function on the next socket
 socket.on('autoHost', function(data) {
     changeHost(data.roomnum)

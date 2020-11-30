@@ -107,6 +107,10 @@
                             <input class="form-control col-sm-12" id="roomnum" autocomplete="off" />
                             <br />
 
+                            <label class="col-sm-12">방 제목</label>
+                            <input class="form-control col-sm-12" id="roomtitle" autocomplete="off" />
+                            <br />
+
                             <input style="margin-top: 10px;" type="submit" class="btn btn-primary" value="접속" />
                             <!--<hr style="height:65pt; visibility:hidden;" /> -->
                         </div>
@@ -128,6 +132,7 @@
 
 
                     <hr style="height:0pt; visibility:hidden;" />
+                    <h5 style="color:gary"><span id="titlelabel" class="label label-default"> 방 제목 </span>
                     <h5 style="color:gary"><span id="hostlabel" class="label label-default"> 방장: 안지영 </span>
                     </h5>
 
@@ -369,6 +374,7 @@
             var $users = $('#users');
             var $username = $('#username');
             var $roomnum = $('#roomnum');
+            var $roomtitle = $('#roomtitle');
 
             var $vidlist = $('#vidlist');
 
@@ -513,7 +519,7 @@
                         }
                     });
                     // Join room
-                    socket.emit('new room', $roomnum.val(), function (data) {
+                    socket.emit('new room', $roomnum.val(), $roomtitle.val(), function (data) {
                         // This should only call back if the client is the host
                         if (data) {
                             console.log("Host is syncing the new socket!")
@@ -680,7 +686,7 @@
 
                     li.append(a);
                     li.setAttribute('id',room.name+"li");
-                    a.textContent=room.name;
+                    a.textContent=room.title;
                     a.setAttribute('href',"/"+room.name);
                     a.setAttribute('id',room.name);
                     roomList.append(li);

@@ -717,7 +717,7 @@
 
         socket.on('cntCng',({name,cnt})=>{
             var span = document.querySelector("#"+name+"cnt");
-            span.textContent=" - 참가자("+cnt+")";
+            span.textContent=room.cnt+"명 참가중";
         });
 
         socket.on('vid_chg',({name,vid})=>{

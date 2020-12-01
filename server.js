@@ -173,7 +173,8 @@ io.sockets.on('connection', function(socket) {
 
         // Adds the room to a global array
         if (!rooms.includes(socket.roomnum)) {
-            io.to("Lobby").emit("addRoom",{room:socket.roomnum});
+            if(roomtitle==="")roomtitle="방"+Math.floor(Math.random()*100); // 방제목 안치면 대충 지어주기
+            io.to("Lobby").emit("addRoom",{room:socket.roomnum,title:roomtitle});
             console.log(socket.roomnum);
             rooms.push(socket.roomnum);
             roomInfo.push({name:socket.roomnum,title:roomtitle,cnt:0,vid:"dyRsYk0LyA8"});

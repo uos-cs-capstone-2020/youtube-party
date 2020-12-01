@@ -107,8 +107,8 @@
                             <input class="form-control col-sm-12" id="roomnum" autocomplete="off" />
                             <br />
 
-                            <label class="col-sm-12">방 제목</label>
-                            <input class="form-control col-sm-12" id="roomtitle" autocomplete="off" />
+                            <label class="col-sm-12" >방 제목</label>
+                            <input class="form-control col-sm-12" id="roomtitle" autocomplete="off"  placeholder="방 생성자만 입력"/>
                             <br />
 
                             <input style="margin-top: 10px;" type="submit" class="btn btn-primary" value="접속" />
@@ -725,7 +725,7 @@
             if(vid&&thumb)thumb.setAttribute("src",'https://img.youtube.com/vi/'+vid+'/default.jpg');
         });
         
-        socket.on('addRoom', ({room})=>{
+        socket.on('addRoom', ({room,title})=>{
            // console.log(room);
             var roomList2 = document.querySelector("#roomList"); 
             var li2 = document.createElement('li');
@@ -750,7 +750,7 @@
             li2.append(a2);
             li2.setAttribute('id',room+"li");
 
-            a2.textContent=room;
+            a2.textContent=title;
             a2.setAttribute('href',"/"+room);
             a2.setAttribute('id',room);
             roomList2.append(li2);

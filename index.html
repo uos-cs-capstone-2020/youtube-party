@@ -395,7 +395,9 @@
             $messageForm.submit(function (e) {
                 e.preventDefault();
                 // console.log("Submitted");
-                socket.emit('send message', $message.val());
+                // 빈 메시지를 전송하지 않도록 합니다.
+                if($message.val()!='')
+                    socket.emit('send message', $message.val());
                 $message.val('');
             });
 
@@ -408,6 +410,7 @@
                 let am = "am";
                 if( h>=12 && h<24 ) am="pm";
                 if( h>12 ) h=h-12;
+                if( m<10 ) m = "0"+m;
 
                 // This checks for the last user
                 // If you are the last user, attach the message instead of creating a new div
@@ -422,8 +425,7 @@
                     }
                 }
                 if (data.user != last_user) {
-                    $chat.append('<div class="well well-sm message-well"><strong>' + data.user + '</strong>'
-                        +' <a class="time">'+am+" "+h+':'+m+'</a>'+" : "+ data.msg + '</div>');
+                    $chat.append('<div class="well well-sm message-well"><strong>'+ data.user +'</strong><a class="time"> '+am+" "+h+':'+m+'</a></br>'+ data.msg +'</div>');
                     // $vidlist.append('<div class="vid-item"><div class="thumb"><img src="http://img.youtube.com/vi/eg6kNoJmzkY/0.jpg"></div><div class="desc">Jessica Hernandez & the Deltas - Dead Brains</div></div>');
                 }
                 // If you sent the last message, append to previous
@@ -447,6 +449,7 @@
                 let am = "am";
                 if( h>=12 && h<24 ) am="pm";
                 if( h>12 ) h=h-12;
+                if( m<10 ) m = "0"+m;
 
                 $chat.append('<div class="userAlert"><i>' + data.user+  data.msg + '</i>'+'<a class="time"> ('+am+" "+h+':'+m+')</a>'+'</div>');
             });

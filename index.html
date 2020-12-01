@@ -118,6 +118,7 @@
                 </div>
                 <div class="RoomList main2">
                     <h2> 개설된 방 목록 </h2>
+                    <hr/>
                     <ul id="roomList">
                     </ul>
                 </div>
@@ -684,25 +685,30 @@
                     var vid=room.vid;
                     img_thumnail.setAttribute('id','img_room'+room.name);
                     img_thumnail.setAttribute('src','https://img.youtube.com/vi/'+vid+'/default.jpg');
+                    div_thumbnail.setAttribute('class','thumbnail');
                     div_thumbnail.append(img_thumnail);
                     div_outer.append(div_thumbnail);
                     div_outer.append(div_user);
                     //
                     //a.append(div_outer);
 
-
+                    var title=document.createElement('div');
+                    title.textContent=room.title;
+                    div_outer.append(title);
+                    console.log(title);
                     li.append(a);
                     li.setAttribute('id',room.name+"li");
-                    a.textContent=room.title;
+                    //a.textContent=room.title;
                     a.setAttribute('href',"/"+room.name);
                     a.setAttribute('id',room.name);
                     roomList.append(li);
 
-                    var span = document.createElement('span');
-                    span.textContent=" - 참가자("+room.cnt+")";
+                    var span = document.createElement('div');
+                    span.textContent=room.cnt+"명 참가중";
                     span.setAttribute('id',room.name+"cnt");
-                    a.append(span);
-                    li.append(div_outer);
+                    span.setAttribute('class','users');
+                    div_thumbnail.append(span);
+                    a.append(div_outer);
                     var br = document.createElement('br');
                     a.append(br);
 

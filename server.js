@@ -154,7 +154,7 @@ io.sockets.on('connection', function(socket) {
 
     // ------------------------------------------------------------------------
     // New room
-    socket.on('new room', function(data, callback) {
+    socket.on('new room', function(data, roomtitle, callback) {
         //callback(true);
         // Roomnum passed through
         socket.roomnum = data;
@@ -176,9 +176,7 @@ io.sockets.on('connection', function(socket) {
             io.to("Lobby").emit("addRoom",{room:socket.roomnum});
             console.log(socket.roomnum);
             rooms.push(socket.roomnum);
-            roomInfo.push({name:socket.roomnum,cnt:0,vid:"dyRsYk0LyA8"});
-            
-            
+            roomInfo.push({name:socket.roomnum,title:roomtitle,cnt:0,vid:"dyRsYk0LyA8"});
         }
 
         // Checks if the room exists or not
@@ -231,12 +229,20 @@ io.sockets.on('connection', function(socket) {
             io.sockets.adapter.rooms['room-' + socket.roomnum].queue = {
                 yt: [],
             }
+            // set title
+            io.sockets.adapter.rooms['room-' + socket.roomnum].title = roomtitle
         }
 
         // Set Host label
         io.sockets.in("room-" + socket.roomnum).emit('changeHostLabel', {
             username: io.sockets.adapter.rooms['room-' + socket.roomnum].hostName
         })
+
+        
+        io.sockets.in("room-" + socket.roomnum).emit('setRoomTitle', {
+            title: io.sockets.adapter.rooms['room-' + socket.roomnum].title
+        })
+
 
         // Set Queue
         updateQueueVideos()
@@ -657,6 +663,16 @@ io.sockets.on('connection', function(socket) {
         //console.log(socket.username)
         users.push(socket.username);
         updateUsernames();
+    });
+
+    // 유저 입퇴장시 채팅에 알림.
+    socket.on('new user entering', function(data) {
+        var encodedMsg = data.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        // console.log(data);
+        io.sockets.in("room-" + socket.roomnum).emit('user alert', {
+            msg: encodedMsg,
+            user: socket.username
+        });
     });
 
     // Changes time for a specific socket

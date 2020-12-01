@@ -205,7 +205,7 @@
  .well-sm {
      padding: 0.8em;
      padding-left: 1em;
-     border-radius: 15px;
+     border-radius: 10px;
  }
 
  .chat {
@@ -218,10 +218,10 @@
      scrollbar-width: none;
  }
 
- .myself{
-    background-color: rgb(83, 83, 83) !important;
+ .chat :last-child{
+     margin-bottom: 0;
  }
- 
+
  .message-well {
      margin: 0 0.3em;
      margin-bottom: 0.35em !important;

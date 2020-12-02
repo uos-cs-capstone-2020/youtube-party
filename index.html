@@ -107,8 +107,8 @@
                             <input class="form-control col-sm-12" id="roomnum" autocomplete="off" />
                             <br />
 
-                            <label class="col-sm-12">방 제목</label>
-                            <input class="form-control col-sm-12" id="roomtitle" autocomplete="off" />
+                            <label class="col-sm-12" >방 제목</label>
+                            <input class="form-control col-sm-12" id="roomtitle" autocomplete="off"  placeholder="방 생성자만 입력"/>
                             <br />
 
                             <input style="margin-top: 10px;" type="submit" class="btn btn-primary" value="접속" />
@@ -725,7 +725,7 @@
             if(vid&&thumb)thumb.setAttribute("src",'https://img.youtube.com/vi/'+vid+'/default.jpg');
         });
         
-        socket.on('addRoom', ({room})=>{
+        socket.on('addRoom', ({room,title})=>{
            // console.log(room);
             var roomList2 = document.querySelector("#roomList"); 
             var li2 = document.createElement('li');
@@ -741,24 +741,30 @@
             var vid2="dyRsYk0LyA8";
             img_thumnail2.setAttribute('id','img_room'+room);
             img_thumnail2.setAttribute('src','https://img.youtube.com/vi/'+vid2+'/default.jpg');
+            div_thumbnail2.setAttribute('class',"thumbnail");
             div_thumbnail2.append(img_thumnail2);
             div_outer2.append(div_thumbnail2);
             div_outer2.append(div_user2);
             //
             //a.append(div_outer);
 
+            var title2 = document.createElement('div')
+            title2.textContent=title
+            div_outer2.append(title2)
             li2.append(a2);
             li2.setAttribute('id',room+"li");
 
-            a2.textContent=room;
+            //a2.textContent=title;
             a2.setAttribute('href',"/"+room);
             a2.setAttribute('id',room);
             roomList2.append(li2);
-            var span2 = document.createElement('span');
-            span2.textContent=" - 참가자(1)";
+
+            var span2 = document.createElement('div');
+            span2.textContent="1명 참가중";
             span2.setAttribute('id',room+"cnt");
-            a2.append(span2);
-            li2.append(div_outer2);
+            span2.setAttribute('class','users')
+            div_thumbnail2.append(span2);
+            a2.append(div_outer2);
             var br2 = document.createElement('br');
             a2.append(br2);
         });

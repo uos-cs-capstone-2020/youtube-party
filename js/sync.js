@@ -206,48 +206,6 @@ function prevVideo(roomnum) {
     });
 }
 
-function loveLive(roomnum) {
-    var time = getTime()
-    // love live, love4eva, why, gee, what is love, stay, starlight, bad boy
-    // likey, spring love, palette, roller coaster, DNA, I, peekaboo, wee woo
-    // rookie, russian roulette, i want you back, TT, whistle, ddu du ddu du, turtle, 24/7
-    // something new, #cookie jar, lion heart, i will show you, bubble pop, girl front, love cherry motion, ice cream cake
-    // stay (taeyeon), ordinary love, 11:11, SObeR, I'm so sick, heaven, genie, dinosaur
-    // Travel, blow your mind, pop/stars, BBIBBI, gotta go, galaxy, my trouble, blue
-    // love scenario, dance the night away, solo, some, yes or yes, when the wind blows, hi high, don't forget,
-    // Uh Oh!, Workaholic, 25, through the night, four seasons, bom, runaway, don't
-    // psycho, fancy, feel special, leave (park bo young), blueming,
-    var video_roulette = [
-        '97uviVyw0_o', 'tIWpr3tHzII', 'WkdtmT8A2iY', 'U7mPqycQ0tQ',
-        'i0p1bmr0EmE', 'FzVR_fymZw4', 'eNmL4JiGxZQ', 'J_CFBjAyPWE',
-        'V2hlQkVJZhE', 'erErBFKPbMY', 'd9IxdwEFk1c', '900X9fDFLc4',
-        'MBdVXkSdhwU', '4OrCA1OInoo', '6uJf2IT2Zh8', 'wLfHuClrQdI',
-        'J0h8-OTC38I', 'QslJYDX3o8s', 'X3H-4crGD6k', 'ePpPVE-GGJw',
-        'dISNgvVpWlo', 'IHNzOHi8sJs', 'sErJjrLswEw', '-j6XPEUKzn0',
-        'im1UUY8dQIk', 'rRgTMs_bGuI', 'nVCubhQ454c', 'MCEcWcIww5k',
-        'bw9CALKOvAI', 'tyInv6RWL0Q', 'VBbeuXW8Nko', 'glXgSSOKlls',
-        'k9_XH1YibcY', 'xGav-z5yRiU', 'WLJyhhNCHi0', 'DgT4CPv_CCE',
-        'F4oHuML9U2A', 'L9ro1KjkJMg', '6SwiSpudKWI', '8Oz7DG76ibY',
-        'xRbPAVnqtcs', '08ATpBqlAIk', 'UOxkGD8qRB4', 'nM0xDI5R50E',
-        'HlN2BXNJzxA', '9U8uA702xrE', 'JRdcPhDkNYw', 'F34e6LYro-4',
-        'vecSVX1QYbQ', 'Fm5iP0S1z9w', 'b73BI9eUkjM', 'hZmoMyFXDoI',
-        'mAKsZ26SabQ', 'o3pOzegB-7w', '846cjX0ZTrk', 'TcytstV1_XE',
-        'ycYLPbtxU1Q', 'mrAIqeULUL0', 'SNS2tOGGGRk', 'BzYnNdJhZQw',
-        '4HG_CJzyX6A', 'AsXxuIdpkWM', 'rloIUIKLFfY', 'IB6kViGA3rY',
-        'uR8Mrt1IpXg', 'kOHB85vDuow', '3ymwOvzhwHs', 'NmY6wo3rEso',
-        'D1PvIWdJ8xo'
-    ]
-
-    // Random number between 0 and 68 inclusive
-    var random = Math.floor(Math.random() * (69))
-    // Only for YouTube testing
-    socket.emit('change video', {
-        room: roomnum,
-        videoId: video_roulette[random],
-        time: time
-    })
-}
-
 // This just calls the sync host function in the server
 socket.on('getData', function(data) {
     console.log("Hi im the host, you called?")

@@ -1,5 +1,5 @@
 {
-  "name": "youtube_part",
+  "name": "youtube_party",
   "version": "1.0.0",
   "description": "youtube video synchronize application",
   "main": "server.js",
@@ -11,7 +11,7 @@
     "type": "git",
     "url": "git+https://github.com/uos-cs-capstone-2020/youtube-party.git"
   },
-  "author": "Kyle Lim",
+  "author": "youtube_party",
   "license": "ISC",
   "dependencies": {
     "dotenv": "8.1.0",

@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/uos-cs-capstone-2020/youtube-party"
+    "url": "git+https://github.com/uos-cs-capstone-2020/youtube-party.git"
   },
   "author": "Kyle Lim",
   "license": "ISC",

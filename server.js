@@ -22,34 +22,11 @@ app.use(express.static(__dirname + '/'));
 server.listen(process.env.PORT || 3000);
 console.log('Server Started . . .');
 
-
-// app.param('room', function(req,res, next, room){
-//     console.log("testing")
-//     console.log(room)
-//     given_room = room
-// res.sendFile(__dirname + '/index.html');
-// });
-
-
 app.get('/:room', function(req, res) {
     given_room = req.params.room
     res.sendFile(__dirname + '/index.html');
 });
 
-
-//var roomno = 1;
-/*
-io.on('connection', function(socket) {
-
-   //Increase roomno 2 clients are present in a room.
-   //if(io.nsps['/'].adapter.rooms["room-"+roomno] && io.nsps['/'].adapter.rooms["room-"+roomno].length > 1) roomno++;
-
-   // For now have it be the same room for everyone!
-   socket.join("room-"+roomno);
-
-   //Send this event to everyone in the room.
-   io.sockets.in("room-"+roomno).emit('connectToRoom', "You are in room no. "+roomno);
-})*/
 
 var roomno = 1;
 
@@ -76,13 +53,6 @@ io.sockets.on('connection', function(socket) {
         roomInfo,
     })
 
-    // io.sockets.emit('broadcast',{ description: connections.length + ' clients connected!'});
-
-    // For now have it be the same room for everyone!
-    //socket.join("room-"+roomno);
-
-    //Send this event to everyone in the room.
-    //io.sockets.in("room-"+roomno).emit('connectToRoom', "You are in room no. "+roomno);
 
     // reset url parameter
     // Workaround because middleware was not working right
@@ -173,8 +143,7 @@ io.sockets.on('connection', function(socket) {
 
         // Adds the room to a global array
         if (!rooms.includes(socket.roomnum)) {
-            if(roomtitle==="")roomtitle="방"+Math.floor(Math.random()*100); // 방제목 안치면 대충 지어주기
-            io.to("Lobby").emit("addRoom",{room:socket.roomnum,title:roomtitle});
+            io.to("Lobby").emit("addRoom",{room:socket.roomnum});
             console.log(socket.roomnum);
             rooms.push(socket.roomnum);
             roomInfo.push({name:socket.roomnum,title:roomtitle,cnt:0,vid:"dyRsYk0LyA8"});
@@ -286,10 +255,6 @@ io.sockets.on('connection', function(socket) {
             // Push to users in the room
             io.sockets.adapter.rooms['room-' + socket.roomnum].users.push(socket.username)
 
-            // socket.emit('changeVideoClient', {
-            //     videoId: currVideo
-            // });
-
             // This calls back the function on the host client
             //callback(true)
 
@@ -306,9 +271,6 @@ io.sockets.on('connection', function(socket) {
         // Update online users
         updateRoomUsers(socket.roomnum)
 
-        // This is all of the rooms
-        // io.sockets.adapter.rooms['room-1'].currVideo = "this is the video"
-        // console.log(io.sockets.adapter.rooms['room-1']);
     });
     // ------------------------------------------------------------------------
 
@@ -343,10 +305,6 @@ io.sockets.on('connection', function(socket) {
             time: currTime
         });
 
-        // Sync up
-        // host = io.sockets.adapter.rooms['room-' + roomnum].host
-        // console.log("let me sync "+host)
-        // socket.broadcast.to(host).emit('getData');
     });
 
     socket.on('play next', function(data, callback) {
@@ -539,14 +497,6 @@ io.sockets.on('connection', function(socket) {
             }
 
         }
-
-        // Auto sync with host after 1000ms of changing video
-        // NOT NEEDED ANYMORE, IN THE CHANGEVIDEOCLIENT FUNCTION
-        // setTimeout(function() {
-        //     socket.broadcast.to(host).emit('getData');
-        // }, 1000);
-
-        // console.log(io.sockets.adapter.rooms['room-1'])
 
         roomInfo.forEach(room=>{
             if(room.name===data.room){ // 영상 바뀐 방 썸네일 변경

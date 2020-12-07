@@ -1,7 +1,7 @@
 {
-  "name": "vynchronize",
+  "name": "youtube_party",
   "version": "1.0.0",
-  "description": "Video synchronization app",
+  "description": "youtube video synchronize application",
   "main": "server.js",
   "scripts": {
     "start": "node server",
@@ -9,9 +9,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kyle8998/Vynchronize.git"
+    "url": "git+https://github.com/uos-cs-capstone-2020/youtube-party.git"
   },
-  "author": "Kyle Lim",
+  "author": "youtube_party",
   "license": "ISC",
   "dependencies": {
     "dotenv": "8.1.0",
@@ -21,9 +21,9 @@
     "ws": ">=3.3.1"
   },
   "bugs": {
-    "url": "https://github.com/kyle8998/Vynchronize/issues"
+    "url": "https://github.com/uos-cs-capstone-2020/youtube-party/issues"
   },
-  "homepage": "https://github.com/kyle8998/Vynchronize#readme",
+  "homepage": "https://github.com/uos-cs-capstone-2020/youtube-party#readme",
   "devDependencies": {
     "jshint": "^2.12.0"
   }

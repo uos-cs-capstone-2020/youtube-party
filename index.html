@@ -2,19 +2,6 @@
 <html lang="en">
 
 <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-121783460-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-
-        gtag('config', 'UA-121783460-1');
-    </script>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -24,19 +11,14 @@
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <!-- <link href="css/animate.css" rel="stylesheet"> -->
-
     <!-- JQuery -->
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
     <!-- Socket.io -->
     <script src="/socket.io/socket.io.js"></script>
-
     <!-- Font awesome -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
-
-    <!-- Custom styles for this template -->
+    <!-- 반응형 웹을 위한 css파일 -->
     <link href="css/small-business.css" rel="stylesheet">
-
     <link href="css/style.css" rel="stylesheet">
     <link href="css/mobile-style.css" rel="stylesheet">
 
@@ -76,9 +58,10 @@
     <!-- Page Content -->
     <div class="container">
 
-        <!-- User Form (First Page) -->
+        <!-- lobby(로비, 첫 페이지) -->
         <div id="userFormArea" class="row" >
             <div class="col-md-12 row" style="margin:0;">
+                <!------------------------ 방 생성 ------------------------------>
                 <div id="main1">
                     <h2> 접속 정보 입력 </h2>
                     <form id="userForm">
@@ -105,6 +88,7 @@
                         </div>
                     </form>
                 </div>
+                <!------------------------- 방 목록(roomList) ----------------------------->
                 <div class="RoomList main2">
                     <h2> 개설된 방 목록 </h2>
                     <hr/>
@@ -113,10 +97,11 @@
                 </div>
             </div>
         </div>
-
+        <!-- room -->
         <div id="roomArea">
 
             <div class="row my-4" style="margin-top: 0px !important;">
+                <!----------- 플레이어, 명령 버튼 ------------>
                 <div class="col-lg-7">
 
                     <hr style="height:0pt; visibility:hidden;" />
@@ -130,7 +115,7 @@
                         <div class="video" id="player"></div>
                     </div>
 
-                    <!----------------------------------- PLAYER AREA ----------------------------------->
+                    <!----------------------------------- 명령 버튼 ----------------------------------->
 
                     <div class="topbotmargins">
                         <input type="Video" style="max-width: 230px; margin-right: .5rem;  float: left;"
@@ -148,7 +133,7 @@
                     </p>
 
                 </div>
-
+                <!-------------------- 채팅방 -------------------->
                 <div class="col-lg-5">
 
                     <hr style="height:0pt; visibility:hidden;" />
@@ -159,7 +144,7 @@
                                     class="fas fa-user"></i>참가자</button>
                     </div>
 
-                    <!-- Modal -->
+                    <!-- 초대 링크 생성 Modal -->
                     <div id="inviteModal" class="modal fade" role="dialog">
                         <div class="modal-dialog">
 
@@ -203,26 +188,23 @@
 
                         </div>
                     </div>
-
+                    <!-- 채팅 리스트, 채팅 입력 폼 -->
                     <div id="messageArea" class="row">
                         <br />
-                        <!-- <h2 style="color:gray">Chat</h2> -->
                         <div class="col-md-12">
                             <div class="chat noscrollbar" id="chat"></div>
                             <!-- Message Form (Enter Message) -->
                             <form id="messageForm">
                                 <div class="form-group">
-
-                                    <!-- <label>Enter Message...</label> -->
+                                    <!-- 채팅 메시지 입력 폼 -->
                                     <input class="form-control chat-form" id="message" placeholder="메세지 입력" autocomplete="off"/>
                                 </div>
                             </form>
                         </div>
                     </div>
-
                 </div>
             </div>
-
+            <!------------ 영상 재생 큐 ------------>
             <div class="row">
                 <div class="col-lg-12">
                     <div id="visual-queue" class="vid-list-container">
@@ -233,6 +215,7 @@
                             </li>
                         </ul>
                     </div>
+                    <!-- 재생 큐 네비게이션 화살표 -->
                     <div id="queue-arrows" class="arrows">
                         <div class="arrow-left">
                             <i class="fa fa-chevron-left fa-lg"></i>
@@ -261,7 +244,6 @@
         // Don't allow trailing or leading whitespace!
         var nosymbols = new RegExp("^(([a-zA-Z0-9_-][a-zA-Z0-9 _-]*[a-zA-Z0-9_-])|([a-zA-Z0-9_-]*))$");
 
-        // Chat stuff
         $(function () {
             var $messageForm = $('#messageForm');
             var $message = $('#message');
@@ -296,8 +278,8 @@
                 if( h>12 ) h=h-12;
                 if( m<10 ) m = "0"+m;
 
-                // This checks for the last user
-                // If you are the last user, attach the message instead of creating a new div
+                // 마지막 채팅 친 사람이 전송한 메시지는
+                // 새로운 div를 생성하지 않고 끝에 이어붙인다.
                 if (last_div !== undefined) {
                     var myRegex = /.*<strong>(.+)<\/strong>.*/g
                     var match = myRegex.exec(last_div.innerHTML)
@@ -311,12 +293,12 @@
                 if (data.user != last_user) {
                     $chat.append('<div class="well well-sm message-well"><strong>'+ data.user +'</strong><a class="time"> '+am+" "+h+':'+m+'</a></br>'+ data.msg +'</div>');
                 }
-                // If you sent the last message, append to previous
+                // 전송자==마지막전송자 일 때 마지막 메시지에 이어붙임.
                 else {
                     last_div.innerHTML = last_div.innerHTML + " <br> " + data.msg
                 }
 
-                // Auto scroll on each message send!
+                // 채팅 자동 스크롤
                 $('div#chat').scrollTop($('div#chat')[0].scrollHeight)
             });
 
@@ -335,34 +317,34 @@
                 $chat.append('<div class="userAlert"><i>' + data.user+  data.msg + '</i>'+'<a class="time"> ('+am+" "+h+':'+m+')</a>'+'</div>');
             });
 
-            // Submit user form
+            // 방 생성 function
             $userForm.submit(function (e) {
                 e.preventDefault();
 
-                // If name not entered
+                // 이름 입력되지 않았을 때
                 if ($username.val() == "") {
                     console.log("ENTER A NAME")
                     var noname = document.getElementById('missinginfo')
                     noname.innerHTML = "이름을 입력하세요."
                 }
-                // If name is too long
+                // 이름이 너무 길 때
                 else if ($username.val().length > 30) {
                     console.log("NAME IS TOO LONG")
                     var noname = document.getElementById('missinginfo')
                     noname.innerHTML = "이름은 30글자 미만으로 입력하세요."
                 }
-                // If room name too long
+                // 방 코드가 너무 길 때
                 else if ($roomnum.val().length > 50) {
                     console.log("ROOM NAME IS TOO LONG")
                     var noname = document.getElementById('missinginfo')
                     noname.innerHTML = "방 코드는 50글자 미만으로 입력하세요."
                 }
+                // 방 코드가 숫자로 시작할 때
                 else if('0' <= $roomnum.val()[0] && $roomnum.val()[0] <= '9'){
                     var noname = document.getElementById('missinginfo')
                     noname.innerHTML = "방 코드는 숫자로 시작할 수 없습니다."
                 }
-                // If Room contains symbols
-                // Can only be reached if the user decided to be sneaky and paste them!
+                // 방 코드에 알파벳과 숫자가 아닌 문자가 포함되었을 때
                 else if (!nosymbols.test($roomnum.val())) {
                     console.log("ENTER A PROPER ROOMNUMBER")
                     var noname = document.getElementById('missinginfo')
@@ -376,30 +358,31 @@
                             $userFormArea.hide();
                             $roomArea.show();
 
-                            // Move footer to correct position
+                            // footer 위치 변경
                             document.getElementById('footer').style.position = 'relative';
 
-                            // Show header buttons!
+                            // 네비게이션 바 버튼 활성화
                             document.getElementById('chat-nav').style.display = 'block';
                             document.getElementById('about-nav').style.display = 'block';
                             document.getElementById('contact-nav').style.display = 'block';
 
-                            // This sets the room number on the client
+                            // 클라이언트 측에 room number 설정
                             if ($roomnum.val() != "") {
                                 roomnum = $roomnum.val()
                             }
 
-                            // Sets the invite link (roomnum)
-                            // document.getElementById('invite').innerHTML = "vynchronize.herokuapp.com/" + roomnum
+                            // 방 코드를 포함하는 초대 링크 생성
                             document.getElementById("inv_input").value = "youtube-party-demo.herokuapp.com/" + roomnum
                             history.pushState('', 'youtube-party', roomnum);
                             
+                            // 유저 입장시 알림
                             socket.emit('new user entering', '님이 입장했습니다' );
                         }
                     });
+
                     // Join room
                     socket.emit('new room', $roomnum.val(), $roomtitle.val(), function (data) {
-                        // This should only call back if the client is the host
+                        // 클라이언트가 host일 때만 call back
                         if (data) {
                             console.log("Host is syncing the new socket!")
                             syncVideo(roomnum)
@@ -420,7 +403,7 @@
                 $users.html(html)
             });
 
-            // Updates the queue
+            // 재생 큐를 업데이트
             // Parameters - vidlist, currPlayer, videoId
             socket.on('get vidlist', function (data) {
                 console.log("i am updating the queue")
@@ -439,7 +422,7 @@
             });
 
 
-            // Prevent special characters from being typed
+            // 방 코드에 특정 문자가 입력되지 않도록 함.
             $('#roomnum').on('keypress', function (event) {
                 var nosymbols = new RegExp("^[a-zA-Z0-9\s]+$");
                 var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
@@ -452,7 +435,7 @@
                 }
             });
 
-            // Prevent special characters from being typed
+            // 이름에 특정 문자가 입력되지 않도록 함.
             $('#username').on('keypress', function (event) {
                 var nosymbols = new RegExp("^[a-zA-Z0-9\s]+$");
                 var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
@@ -465,20 +448,20 @@
 
         });
 
-        // Remove the video from the queue at idx
+        // 재생 큐의 특정 영상을 삭제함
         function removeAt(idx) {
             socket.emit('remove at', {
                 idx: idx
             })
         }
-
+        // 재생 큐의 특정 영상을 재생함
         function playAt(idx) {
             socket.emit('play at', {
                 idx: idx
             }, function (data) {
                 var videoId = data.videoId
 
-                // Change the video
+                // 영상 변경
                 socket.emit('change video', {
                     room: roomnum,
                     videoId: videoId,
@@ -507,7 +490,7 @@
             });
         });
 
-        // playlist
+        // 재생 큐 네비게이션 화살표 작동
         $(document).ready(function () {
             $(".arrow-right").bind("click", function (event) {
                 event.preventDefault();
@@ -647,6 +630,7 @@
 
         });
    
+        // 초대 링크 복사 function
         function copyInvite() {
             /* Get the text field */
             var copyText = document.getElementById("inv_input");
@@ -666,7 +650,7 @@
             tooltip.innerHTML = "Copy to clipboard";
         }
 
-        // Generate a random alphanumeric room id
+        // 방 코드를 랜덤하게 생성
         function randomroom() {
             random_roomnum = Math.random().toString(36).substr(2, 12)
 

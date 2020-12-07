@@ -1,7 +1,7 @@
-var io = require('../../server').io
+var io = require('../../server').io 
 var socket = require('../../server').socket
 
-// CURRENTLY NOT BEING USED
+// CURRENTLY NOT BEING USED.
 // SHOULD REFACTOR NODE AND SOCKET STUFF IN FUTURE!
 
 module.exports = {

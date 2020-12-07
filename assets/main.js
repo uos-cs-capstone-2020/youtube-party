@@ -1,4 +1,4 @@
-(function (window) {
+(function (window) {//main.js
 	var CLOCK_PORT = 5001,
 		EPSILON = -1 / 15,
 		DURATION = 149.619,

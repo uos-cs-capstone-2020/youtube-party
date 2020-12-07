@@ -24,19 +24,14 @@
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <!-- <link href="css/animate.css" rel="stylesheet"> -->
-
     <!-- JQuery -->
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
     <!-- Socket.io -->
     <script src="/socket.io/socket.io.js"></script>
-
     <!-- Font awesome -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
-
-    <!-- Custom styles for this template -->
+    <!-- 반응형 웹을 위한 css파일 -->
     <link href="css/small-business.css" rel="stylesheet">
-
     <link href="css/style.css" rel="stylesheet">
     <link href="css/mobile-style.css" rel="stylesheet">
 
@@ -76,9 +71,10 @@
     <!-- Page Content -->
     <div class="container">
 
-        <!-- User Form (First Page) -->
+        <!-- lobby(로비, 첫 페이지) -->
         <div id="userFormArea" class="row" >
             <div class="col-md-12 row" style="margin:0;">
+                <!------------------------ 방 생성 ------------------------------>
                 <div id="main1">
                     <h2> 접속 정보 입력 </h2>
                     <form id="userForm">
@@ -105,6 +101,7 @@
                         </div>
                     </form>
                 </div>
+                <!------------------------- 방 목록(roomList) ----------------------------->
                 <div class="RoomList main2">
                     <h2> 개설된 방 목록 </h2>
                     <hr/>
@@ -113,10 +110,11 @@
                 </div>
             </div>
         </div>
-
+        <!-- room -->
         <div id="roomArea">
 
             <div class="row my-4" style="margin-top: 0px !important;">
+                <!----------- 플레이어, 명령 버튼 ------------>
                 <div class="col-lg-7">
 
                     <hr style="height:0pt; visibility:hidden;" />
@@ -130,7 +128,7 @@
                         <div class="video" id="player"></div>
                     </div>
 
-                    <!----------------------------------- PLAYER AREA ----------------------------------->
+                    <!----------------------------------- 명령 버튼 ----------------------------------->
 
                     <div class="topbotmargins">
                         <input type="Video" style="max-width: 230px; margin-right: .5rem;  float: left;"
@@ -148,7 +146,7 @@
                     </p>
 
                 </div>
-
+                <!-------------------- 채팅방 -------------------->
                 <div class="col-lg-5">
 
                     <hr style="height:0pt; visibility:hidden;" />
@@ -159,7 +157,7 @@
                                     class="fas fa-user"></i>참가자</button>
                     </div>
 
-                    <!-- Modal -->
+                    <!-- 초대 링크 생성 Modal -->
                     <div id="inviteModal" class="modal fade" role="dialog">
                         <div class="modal-dialog">
 
@@ -203,26 +201,23 @@
 
                         </div>
                     </div>
-
+                    <!-- 채팅 리스트, 채팅 입력 폼 -->
                     <div id="messageArea" class="row">
                         <br />
-                        <!-- <h2 style="color:gray">Chat</h2> -->
                         <div class="col-md-12">
                             <div class="chat noscrollbar" id="chat"></div>
                             <!-- Message Form (Enter Message) -->
                             <form id="messageForm">
                                 <div class="form-group">
-
-                                    <!-- <label>Enter Message...</label> -->
+                                    <!-- 채팅 메시지 입력 폼 -->
                                     <input class="form-control chat-form" id="message" placeholder="메세지 입력" autocomplete="off"/>
                                 </div>
                             </form>
                         </div>
                     </div>
-
                 </div>
             </div>
-
+            <!------------ 영상 재생 큐 ------------>
             <div class="row">
                 <div class="col-lg-12">
                     <div id="visual-queue" class="vid-list-container">
@@ -233,6 +228,7 @@
                             </li>
                         </ul>
                     </div>
+                    <!-- 재생 큐 네비게이션 화살표 -->
                     <div id="queue-arrows" class="arrows">
                         <div class="arrow-left">
                             <i class="fa fa-chevron-left fa-lg"></i>

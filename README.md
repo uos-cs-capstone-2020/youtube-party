@@ -16,5 +16,5 @@ npm start
 ## Youtube Data API Key
 [Youtube Data API V3](https://developers.google.com/youtube/v3/getting-started) Key goes in `.env` file like this.
 ```
-YT3_API_KEY=${YOUR_API_KEY}
+YT3_API_KEY=YOUR_API_KEY
 ```
